@@ -1,0 +1,3 @@
+/home/stepan/C++/techonparkproject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/stepan/C++/techonparkproject/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/stepan/C++/techonparkproject/cmake-build-debug/CMakeFiles/techonparkproject.dir
