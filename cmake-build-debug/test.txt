@@ -1,0 +1,3 @@
+Hello, CLion!
+test1
+test2

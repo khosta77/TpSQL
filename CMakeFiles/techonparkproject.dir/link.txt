@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/techonparkproject.dir/project/src/main.cpp.o CMakeFiles/techonparkproject.dir/project/src/table.cpp.o  -o techonparkproject 
