@@ -111,71 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named techonparkproject
+# Target rules for targets named untitled4
 
 # Build rule for target.
-techonparkproject: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 techonparkproject
-.PHONY : techonparkproject
+untitled4: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 untitled4
+.PHONY : untitled4
 
 # fast build rule for target.
-techonparkproject/fast:
-	$(MAKE) -f CMakeFiles/techonparkproject.dir/build.make CMakeFiles/techonparkproject.dir/build
-.PHONY : techonparkproject/fast
+untitled4/fast:
+	$(MAKE) -f CMakeFiles/untitled4.dir/build.make CMakeFiles/untitled4.dir/build
+.PHONY : untitled4/fast
 
-project/src/main.o: project/src/main.cpp.o
+main.o: main.cpp.o
 
-.PHONY : project/src/main.o
-
-# target to build an object file
-project/src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/techonparkproject.dir/build.make CMakeFiles/techonparkproject.dir/project/src/main.cpp.o
-.PHONY : project/src/main.cpp.o
-
-project/src/main.i: project/src/main.cpp.i
-
-.PHONY : project/src/main.i
-
-# target to preprocess a source file
-project/src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/techonparkproject.dir/build.make CMakeFiles/techonparkproject.dir/project/src/main.cpp.i
-.PHONY : project/src/main.cpp.i
-
-project/src/main.s: project/src/main.cpp.s
-
-.PHONY : project/src/main.s
-
-# target to generate assembly for a file
-project/src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/techonparkproject.dir/build.make CMakeFiles/techonparkproject.dir/project/src/main.cpp.s
-.PHONY : project/src/main.cpp.s
-
-project/src/table.o: project/src/table.cpp.o
-
-.PHONY : project/src/table.o
+.PHONY : main.o
 
 # target to build an object file
-project/src/table.cpp.o:
-	$(MAKE) -f CMakeFiles/techonparkproject.dir/build.make CMakeFiles/techonparkproject.dir/project/src/table.cpp.o
-.PHONY : project/src/table.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled4.dir/build.make CMakeFiles/untitled4.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-project/src/table.i: project/src/table.cpp.i
+main.i: main.cpp.i
 
-.PHONY : project/src/table.i
+.PHONY : main.i
 
 # target to preprocess a source file
-project/src/table.cpp.i:
-	$(MAKE) -f CMakeFiles/techonparkproject.dir/build.make CMakeFiles/techonparkproject.dir/project/src/table.cpp.i
-.PHONY : project/src/table.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled4.dir/build.make CMakeFiles/untitled4.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-project/src/table.s: project/src/table.cpp.s
+main.s: main.cpp.s
 
-.PHONY : project/src/table.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-project/src/table.cpp.s:
-	$(MAKE) -f CMakeFiles/techonparkproject.dir/build.make CMakeFiles/techonparkproject.dir/project/src/table.cpp.s
-.PHONY : project/src/table.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled4.dir/build.make CMakeFiles/untitled4.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -185,13 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... techonparkproject"
-	@echo "... project/src/main.o"
-	@echo "... project/src/main.i"
-	@echo "... project/src/main.s"
-	@echo "... project/src/table.o"
-	@echo "... project/src/table.i"
-	@echo "... project/src/table.s"
+	@echo "... untitled4"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

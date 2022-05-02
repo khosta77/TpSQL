@@ -1,13 +1,14 @@
-#ifndef TPSQL_CSV_READER_H
-#define TPSQL_CSV_READER_H
+#ifndef TPSQL_TABLE_H_
+#define TPSQL_TABLE_H_
 
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
-class csv_reader {
+class Table {
 private:
     vector<string> table;
     size_t rows = 0;
@@ -29,4 +30,4 @@ public:
     bool table_empty();
 };
 
-#endif //TPSQL_CSV_READER_H
+#endif  // TPSQL_TABLE_H_

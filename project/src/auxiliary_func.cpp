@@ -37,15 +37,15 @@ int max_elem_size_in_col(const vector<string> table, const size_t rows,
 }
 
 // Создание таблицы
-csv_reader create_table(size_t row, size_t col) {
-    csv_reader csr;
+Table create_table(size_t row, size_t col) {
+    Table csr;
     csr.set_rows_size(row);
     csr.set_cols_size(col);
     csr.set_table();
     return csr;
 }
 
-void add_rows(csv_reader* csr, size_t row) {
+void add_rows(Table* csr, size_t row) {
     csr->set_rows_size(row + csr->get_rows());
 
     if (row == 1) {
@@ -59,7 +59,7 @@ void add_rows(csv_reader* csr, size_t row) {
     }
 }
 
-void add_cols(csv_reader* csr, size_t col) {
+void add_cols(Table* csr, size_t col) {
     csr->set_cols_size(col + csr->get_cols());
 
     if (col == 1) {

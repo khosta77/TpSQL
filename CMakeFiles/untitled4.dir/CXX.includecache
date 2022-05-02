@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/stepan/C++/techonparkproject/main.cpp
+./project/include/Table.h
+/home/stepan/C++/techonparkproject/project/include/Table.h
+./project/include/auxiliary_func.h
+/home/stepan/C++/techonparkproject/project/include/auxiliary_func.h
+./project/src/auxiliary_func.cpp
+/home/stepan/C++/techonparkproject/project/src/auxiliary_func.cpp
+
+/home/stepan/C++/techonparkproject/project/include/Table.h
+iostream
+-
+string
+-
+vector
+-
+iomanip
+-
+
+/home/stepan/C++/techonparkproject/project/include/auxiliary_func.h
+Table.h
+/home/stepan/C++/techonparkproject/project/include/Table.h
+fstream
+-
+
+/home/stepan/C++/techonparkproject/project/src/auxiliary_func.cpp
+../include/auxiliary_func.h
+/home/stepan/C++/techonparkproject/project/include/auxiliary_func.h
+

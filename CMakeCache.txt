@@ -145,7 +145,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=techonparkproject
+CMAKE_PROJECT_NAME:STATIC=untitled4
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -214,6 +214,12 @@ techonparkproject_BINARY_DIR:STATIC=/home/stepan/C++/techonparkproject
 
 //Value Computed by CMake
 techonparkproject_SOURCE_DIR:STATIC=/home/stepan/C++/techonparkproject
+
+//Value Computed by CMake
+untitled4_BINARY_DIR:STATIC=/home/stepan/C++/techonparkproject
+
+//Value Computed by CMake
+untitled4_SOURCE_DIR:STATIC=/home/stepan/C++/techonparkproject
 
 
 ########################

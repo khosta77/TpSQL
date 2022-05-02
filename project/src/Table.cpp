@@ -1,13 +1,7 @@
-#include "../include/csv_reader.h"
-#include "../include/auxiliary_func.h"
+#include "../project/include/Table.h"
+#include "../project/include/auxiliary_func.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <iomanip>
-
-// Функция записи элементов таблицы из файла в вектор
-void csv_reader::read_file(string path_file) {
+void Table::read_file(string path_file) {
     ifstream fin;
     fin.open(path_file);
     string buf;
@@ -22,8 +16,7 @@ void csv_reader::read_file(string path_file) {
     fin.close();
 }
 
-// Функция вывода таблицы в консоль
-void csv_reader::out_str() {
+void Table::out_str() {
     int max_elem_size;
     for (size_t i = 0; i < rows; i++) {
         for (size_t j = 0; j < cols; j++) {
@@ -34,8 +27,7 @@ void csv_reader::out_str() {
     }
 }
 
-// Вывод содержимого ячейки
-string csv_reader::get_elem(size_t row, size_t col) {
+string Table::get_elem(size_t row, size_t col) {
     if ((row >= rows) || (col >= cols)) {
         return "Ошибка. Неверно введен номер ячейки";
     }
@@ -47,36 +39,27 @@ string csv_reader::get_elem(size_t row, size_t col) {
     }
 }
 
-// Редактирование содержимого ячейки
-void csv_reader::set_elem(size_t row, size_t col, string& value) {
+void Table::set_elem(size_t row, size_t col, string& value) {
     table.at(col + row * cols) = value;
 }
 
-// Задание содержимого ячеек
-void csv_reader::set_table() {
+void Table::set_table() {
     string buf;
     for (size_t i = 0; i < rows; i++) {
         cout << "Введите " << i  << " строку. Значение ячеек разделяйте ;" << endl;
-
-//        if (i > 0) {
-//            cin.ignore();
-//        }
         set_row_elems(i);
     }
 }
 
-// Задание количества строк
-void csv_reader::set_rows_size(size_t rows) {
+void Table::set_rows_size(size_t rows) {
     this->rows = rows;
 }
 
-// Задание количества столбцов
-void csv_reader::set_cols_size(size_t cols) {
+void Table::set_cols_size(size_t cols) {
     this->cols = cols;
 }
 
-// Ввести элементы строки
-void csv_reader::set_row_elems(size_t pos) {
+void Table::set_row_elems(size_t pos) {
     string buf;
     if (pos == 0) {
         cin.ignore();
@@ -86,7 +69,7 @@ void csv_reader::set_row_elems(size_t pos) {
     split_str(buf, &table);
 }
 
-void csv_reader::set_col_elems(size_t col, size_t current_col) {
+void Table::set_col_elems(size_t col, size_t current_col) {
     vector<string> new_table;
     vector<string> buf_table;
     string buf;
@@ -107,17 +90,15 @@ void csv_reader::set_col_elems(size_t col, size_t current_col) {
     table = new_table;
 }
 
-// Узнать количество строк
-size_t csv_reader::get_rows() {
+size_t Table::get_rows() {
     return rows;
 }
 
-// Узнать количество столбцов
-size_t csv_reader::get_cols() {
+size_t Table::get_cols() {
     return cols;
 }
 
-void csv_reader::write_file(string filename) {
+void Table::write_file(string filename) {
     ofstream fout;
     fout.open(filename);
     for (size_t i = 0; i < rows; i++) {
@@ -133,6 +114,6 @@ void csv_reader::write_file(string filename) {
     fout.close();
 }
 
-bool csv_reader::table_empty() {
+bool Table::table_empty() {
     return table.empty();
 }
