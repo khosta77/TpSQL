@@ -1,6 +1,11 @@
 #include "../project/include/Table.h"
 #include "../project/include/auxiliary_func.h"
 
+// Construct/destruct
+//Table::Table(string path_file);
+//Table::~Table();
+
+// read/write table
 void Table::read_file(string path_file) {
     ifstream fin;
     fin.open(path_file);
@@ -8,12 +13,28 @@ void Table::read_file(string path_file) {
     while (!fin.eof()) {
         getline(fin, buf);
         if (buf != "") {
-            split_str(buf, &table);  //функция разбиения считанной строки на элементы
+            split_str(buf, &table);
             rows++;
         }
     }
     cols = table.size() / rows;
     fin.close();
+}
+
+void Table::write_file(string filename) {
+    ofstream fout;
+    fout.open(filename);
+    for (size_t i = 0; i < rows; i++) {
+        for (size_t j = 0; j < cols; j++) {
+            fout << table.at(j + i * rows);
+
+            if (j + 1 != cols) {
+                fout << ";";
+            }
+        }
+        fout << endl;
+    }
+    fout.close();
 }
 
 void Table::out_str() {
@@ -25,6 +46,19 @@ void Table::out_str() {
         }
         cout << endl;
     }
+}
+
+// info
+size_t Table::get_rows() {
+    return rows;
+}
+
+size_t Table::get_cols() {
+    return cols;
+}
+
+bool Table::table_empty() {
+    return table.empty();
 }
 
 string Table::get_elem(size_t row, size_t col) {
@@ -39,6 +73,7 @@ string Table::get_elem(size_t row, size_t col) {
     }
 }
 
+// redact
 void Table::set_elem(size_t row, size_t col, string& value) {
     table.at(col + row * cols) = value;
 }
@@ -90,30 +125,4 @@ void Table::set_col_elems(size_t col, size_t current_col) {
     table = new_table;
 }
 
-size_t Table::get_rows() {
-    return rows;
-}
-
-size_t Table::get_cols() {
-    return cols;
-}
-
-void Table::write_file(string filename) {
-    ofstream fout;
-    fout.open(filename);
-    for (size_t i = 0; i < rows; i++) {
-        for (size_t j = 0; j < cols; j++) {
-            fout << table.at(j + i * rows);
-
-            if (j + 1 != cols) {
-                fout << ";";
-            }
-        }
-        fout << endl;
-    }
-    fout.close();
-}
-
-bool Table::table_empty() {
-    return table.empty();
-}
+//dop func
