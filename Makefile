@@ -150,6 +150,60 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+project/src/Table.o: project/src/Table.cpp.o
+
+.PHONY : project/src/Table.o
+
+# target to build an object file
+project/src/Table.cpp.o:
+	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/Table.cpp.o
+.PHONY : project/src/Table.cpp.o
+
+project/src/Table.i: project/src/Table.cpp.i
+
+.PHONY : project/src/Table.i
+
+# target to preprocess a source file
+project/src/Table.cpp.i:
+	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/Table.cpp.i
+.PHONY : project/src/Table.cpp.i
+
+project/src/Table.s: project/src/Table.cpp.s
+
+.PHONY : project/src/Table.s
+
+# target to generate assembly for a file
+project/src/Table.cpp.s:
+	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/Table.cpp.s
+.PHONY : project/src/Table.cpp.s
+
+project/src/auxiliary_func.o: project/src/auxiliary_func.cpp.o
+
+.PHONY : project/src/auxiliary_func.o
+
+# target to build an object file
+project/src/auxiliary_func.cpp.o:
+	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o
+.PHONY : project/src/auxiliary_func.cpp.o
+
+project/src/auxiliary_func.i: project/src/auxiliary_func.cpp.i
+
+.PHONY : project/src/auxiliary_func.i
+
+# target to preprocess a source file
+project/src/auxiliary_func.cpp.i:
+	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.i
+.PHONY : project/src/auxiliary_func.cpp.i
+
+project/src/auxiliary_func.s: project/src/auxiliary_func.cpp.s
+
+.PHONY : project/src/auxiliary_func.s
+
+# target to generate assembly for a file
+project/src/auxiliary_func.cpp.s:
+	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.s
+.PHONY : project/src/auxiliary_func.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +216,12 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... project/src/Table.o"
+	@echo "... project/src/Table.i"
+	@echo "... project/src/Table.s"
+	@echo "... project/src/auxiliary_func.o"
+	@echo "... project/src/auxiliary_func.i"
+	@echo "... project/src/auxiliary_func.s"
 .PHONY : help
 
 

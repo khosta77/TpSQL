@@ -74,12 +74,12 @@ clean: CMakeFiles/TpSQL.dir/clean
 CMakeFiles/TpSQL.dir/all:
 	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/depend
 	$(MAKE) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/stepan/C++/techonparkproject/CMakeFiles --progress-num=1,2 "Built target TpSQL"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/stepan/C++/techonparkproject/CMakeFiles --progress-num=1,2,3,4 "Built target TpSQL"
 .PHONY : CMakeFiles/TpSQL.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/TpSQL.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stepan/C++/techonparkproject/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stepan/C++/techonparkproject/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/TpSQL.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/stepan/C++/techonparkproject/CMakeFiles 0
 .PHONY : CMakeFiles/TpSQL.dir/rule

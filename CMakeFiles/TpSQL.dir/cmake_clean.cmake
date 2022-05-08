@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/TpSQL.dir/main.cpp.o"
+  "CMakeFiles/TpSQL.dir/project/src/Table.cpp.o"
+  "CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o"
   "TpSQL"
   "TpSQL.pdb"
 )

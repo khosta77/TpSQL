@@ -5,6 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/stepan/C++/techonparkproject/main.cpp" "/home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir/main.cpp.o"
+  "/home/stepan/C++/techonparkproject/project/src/Table.cpp" "/home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir/project/src/Table.cpp.o"
+  "/home/stepan/C++/techonparkproject/project/src/auxiliary_func.cpp" "/home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
