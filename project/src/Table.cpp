@@ -1,5 +1,5 @@
-#include "../project/include/Table.h"
-#include "../project/include/auxiliary_func.h"
+#include "../include/Table.h"
+#include "../include/auxiliary_func.h"
 
 // Construct/destruct
 //Table::Table(string path_file);
@@ -37,16 +37,16 @@ void Table::write_file(string filename) {
     fout.close();
 }
 
-void Table::out_str() {
-    int max_elem_size;
-    for (size_t i = 0; i < rows; i++) {
-        for (size_t j = 0; j < cols; j++) {
-            max_elem_size = max_elem_size_in_col(table, rows, cols, j);
-            cout << setw(max_elem_size)<< left << table.at(j + i * cols) << "   ";
-        }
-        cout << endl;
-    }
-}
+//void Table::out_str() {
+//    int max_elem_size;
+//    for (size_t i = 0; i < rows; i++) {
+//        for (size_t j = 0; j < cols; j++) {
+//            max_elem_size = max_elem_size_in_col(table, rows, cols, j);
+//            cout << setw(max_elem_size)<< left << table.at(j + i * cols) << "   ";
+//        }
+//        cout << endl;
+//    }
+//}
 
 // info
 size_t Table::get_rows() {
@@ -87,6 +87,9 @@ void Table::set_table() {
 }
 
 void Table::set_rows_size(size_t rows) {
+    for (size_t i = this->rows * this->cols; i < rows * this->cols; i++) {
+        table.push_back("");
+    }
     this->rows = rows;
 }
 
@@ -123,6 +126,12 @@ void Table::set_col_elems(size_t col, size_t current_col) {
     }
 
     table = new_table;
+}
+
+
+void Table::push_col(string col_name) { // Вынужденный метод на данном этапе.
+    table.push_back(col_name);
+    this->cols = table.size();
 }
 
 //dop func

@@ -38,6 +38,10 @@ public:
     void set_col_elems(size_t col, size_t current_col);  // Заполнение элементов добавленного столбца
     void set_elem(size_t row, size_t col, string& value);  // Редактирование содержимого ячейки
 
+
+
+    // !!! dop func
+    void push_col(string col_name);
 private:
     //dop func
 };
