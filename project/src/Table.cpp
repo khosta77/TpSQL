@@ -17,6 +17,7 @@ void Table::read_file(string path_file) {
             rows++;
         }
     }
+
     cols = table.size() / rows;
     fin.close();
 }
@@ -37,16 +38,23 @@ void Table::write_file(string filename) {
     fout.close();
 }
 
-//void Table::out_str() {
+void Table::out_table() {  // бывш. out_str
 //    int max_elem_size;
-//    for (size_t i = 0; i < rows; i++) {
-//        for (size_t j = 0; j < cols; j++) {
+    cout << rows << " " << cols << endl;
+    for (size_t i = 0; i < rows; i++) {
+        for (size_t j = 0; j < cols; j++) {
 //            max_elem_size = max_elem_size_in_col(table, rows, cols, j);
 //            cout << setw(max_elem_size)<< left << table.at(j + i * cols) << "   ";
-//        }
-//        cout << endl;
-//    }
-//}
+
+//            cout << setw(15) << this->table[j + i * this->cols];
+
+            for (size_t k = 0; k < this->table[j + i * this->cols].size(); k++) {
+                cout << this->table[j + i * this->cols][k];
+            }
+        }
+        cout << endl;
+    }
+}
 
 // info
 size_t Table::get_rows() {
