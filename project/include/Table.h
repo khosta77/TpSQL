@@ -36,7 +36,7 @@ public:
     void set_table();  // Заполнение элементов таблицы пользователем
     void set_row_elems(size_t pos);  // Заполнение элементов добавленной строки
     void set_col_elems(size_t col, size_t current_col);  // Заполнение элементов добавленного столбца
-    void set_elem(size_t row, size_t col, string& value);  // Редактирование содержимого ячейки
+    void set_elem(size_t row, size_t col, string value);  // Редактирование содержимого ячейки
 
 
 

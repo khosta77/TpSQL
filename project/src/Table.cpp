@@ -1,6 +1,23 @@
 #include "../include/Table.h"
 #include "../include/auxiliary_func.h"
 
+/*
+ *
+ * Не знаю почему но таблица не корректно считывалась, в ней были не читаемые символы
+ * */
+static void split_str_2(string str, vector<string> &array) {
+    string buf = "";
+    for (size_t i = 0; i <= str.size(); i++) {
+        if (str[i] == ';' || str[i] == '\r' || str[i] == '\0' || i == (str.size())) {
+            array.push_back(buf);
+            buf = "";
+        } else {
+            buf += str[i];
+        }
+    }
+}
+
+
 // Construct/destruct
 //Table::Table(string path_file);
 //Table::~Table();
@@ -13,11 +30,10 @@ void Table::read_file(string path_file) {
     while (!fin.eof()) {
         getline(fin, buf);
         if (buf != "") {
-            split_str(buf, &table);
+            split_str_2(buf, table);
             rows++;
         }
     }
-
     cols = table.size() / rows;
     fin.close();
 }
@@ -39,18 +55,18 @@ void Table::write_file(string filename) {
 }
 
 void Table::out_table() {  // бывш. out_str
-//    int max_elem_size;
-    cout << rows << " " << cols << endl;
+    int max_elem_size;
+//    cout << rows << " " << cols << endl;
     for (size_t i = 0; i < rows; i++) {
         for (size_t j = 0; j < cols; j++) {
-//            max_elem_size = max_elem_size_in_col(table, rows, cols, j);
-//            cout << setw(max_elem_size)<< left << table.at(j + i * cols) << "   ";
+            max_elem_size = max_elem_size_in_col(table, rows, cols, j);
+            cout << setw(max_elem_size)<< left << table.at(j + i * cols) << "   ";
 
 //            cout << setw(15) << this->table[j + i * this->cols];
 
-            for (size_t k = 0; k < this->table[j + i * this->cols].size(); k++) {
-                cout << this->table[j + i * this->cols][k];
-            }
+//            for (size_t k = 0; k < this->table[j + i * this->cols].size(); k++) {
+//                cout << this->table[j + i * this->cols][k];
+//            }
         }
         cout << endl;
     }
@@ -82,7 +98,7 @@ string Table::get_elem(size_t row, size_t col) {
 }
 
 // redact
-void Table::set_elem(size_t row, size_t col, string& value) {
+void Table::set_elem(size_t row, size_t col, string value) {
     table.at(col + row * cols) = value;
 }
 
