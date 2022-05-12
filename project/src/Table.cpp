@@ -41,10 +41,9 @@ void Table::read_file(string path_file) {
 void Table::write_file(string filename) {
     ofstream fout;
     fout.open(filename);
-    for (size_t i = 0; i < rows; i++) {
-        for (size_t j = 0; j < cols; j++) {
-            fout << table.at(j + i * rows);
-
+    for (size_t i = 0; i < this->rows; i++) {
+        for (size_t j = 0; j < this->cols; j++) {
+            fout << table[j + i * this->cols]; // Здесь была ошибка, она исправлена
             if (j + 1 != cols) {
                 fout << ";";
             }
@@ -56,17 +55,10 @@ void Table::write_file(string filename) {
 
 void Table::out_table() {  // бывш. out_str
     int max_elem_size;
-//    cout << rows << " " << cols << endl;
     for (size_t i = 0; i < rows; i++) {
         for (size_t j = 0; j < cols; j++) {
             max_elem_size = max_elem_size_in_col(table, rows, cols, j);
             cout << setw(max_elem_size)<< left << table.at(j + i * cols) << "   ";
-
-//            cout << setw(15) << this->table[j + i * this->cols];
-
-//            for (size_t k = 0; k < this->table[j + i * this->cols].size(); k++) {
-//                cout << this->table[j + i * this->cols][k];
-//            }
         }
         cout << endl;
     }
@@ -99,7 +91,7 @@ string Table::get_elem(size_t row, size_t col) {
 
 // redact
 void Table::set_elem(size_t row, size_t col, string value) {
-    table.at(col + row * cols) = value;
+    table[col + row * cols] = value;
 }
 
 void Table::set_table() {
@@ -111,9 +103,12 @@ void Table::set_table() {
 }
 
 void Table::set_rows_size(size_t rows) {
-    for (size_t i = this->rows * this->cols; i < rows * this->cols; i++) {
-        table.push_back("");
-    }
+//    if ((this->rows * this->cols) >= table.size()) {
+//        table.resize((this->rows + 1) * this->cols)
+//    }
+//    for (size_t i = this->rows * this->cols - 1; i < rows * this->cols; i++) {
+//        table.push_back(" ");
+//    }
     this->rows = rows;
 }
 
@@ -152,10 +147,19 @@ void Table::set_col_elems(size_t col, size_t current_col) {
     table = new_table;
 }
 
-
+//dop func
 void Table::push_col(string col_name) { // Вынужденный метод на данном этапе.
     table.push_back(col_name);
     this->cols = table.size();
 }
 
-//dop func
+void Table::set_rows_size() {
+    if ((this->rows * this->cols) >= table.size()) {
+        table.resize((this->rows + 1) * this->cols);
+    }
+    table.at(this->rows * this->cols).push_back('\0');
+    this->rows++;
+//    for (size_t i = this->rows * this->cols - 1; i < rows * this->cols; i++) {
+//        table.push_back(" ");
+//    }
+}
