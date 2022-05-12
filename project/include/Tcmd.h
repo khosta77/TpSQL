@@ -225,6 +225,7 @@ void Tcmd::insert(vector<string> cmd) {
                 break;
             }
         }
+        cout << cmd[mrk_end_col + 1] << endl;
         if (tolower(cmd[mrk_end_col + 1]) == "values") {
             vector<string> val;
             for (size_t i = mrk_end_col + 2; i < cmd.size(); i++) {
@@ -238,11 +239,10 @@ void Tcmd::insert(vector<string> cmd) {
                         cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
                         break;
                     }
-                    default: {  // Вот здесь алгоритм уже очень плохо работает....
+                    default: {
                         Table tbl;
                         tbl.read_file(cmd[2]);
-                        tbl.set_rows_size(1 + tbl.get_rows());
-                        cout << tbl.get_rows() << " " << tbl.get_cols() << endl;
+                        tbl.set_rows_size();  // + 1
                         for (size_t i = 0; i < col.size(); i++) {
                             for (size_t j = 0; j < tbl.get_cols(); j++) {
                                 if (tbl.get_elem(0, j) == col[i]) {
