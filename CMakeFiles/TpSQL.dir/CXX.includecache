@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/stepan/C++/techonparkproject/main.cpp
-./project/include/Table.h
-/home/stepan/C++/techonparkproject/project/include/Table.h
-./project/include/Tcmd.h
-/home/stepan/C++/techonparkproject/project/include/Tcmd.h
-
 /home/stepan/C++/techonparkproject/project/include/Table.h
 iostream
 -
@@ -22,25 +16,15 @@ vector
 iomanip
 -
 
-/home/stepan/C++/techonparkproject/project/include/Tcmd.h
-iostream
--
-string
--
-vector
--
-iomanip
--
-algorithm
--
-cctype
--
-iomanip
--
-fstream
--
-cstdio
--
+/home/stepan/C++/techonparkproject/project/include/auxiliary_func.h
 Table.h
 /home/stepan/C++/techonparkproject/project/include/Table.h
+fstream
+-
+
+/home/stepan/C++/techonparkproject/project/src/Table.cpp
+../include/Table.h
+/home/stepan/C++/techonparkproject/project/include/Table.h
+../include/auxiliary_func.h
+/home/stepan/C++/techonparkproject/project/include/auxiliary_func.h
 
