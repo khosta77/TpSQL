@@ -48,15 +48,15 @@ private:
     void get_tables_from_memory();
     void update_tables_from_memory();
     // DDL
-    void create(vector<string> cmd);
-    void drop(vector<string> cmd);
+    void create(vector<string> cmd); // 7
+    void drop(vector<string> cmd); // 7
     void alter(vector<string> cmd);  // Пока что нету
     // DML
-    void select(vector<string> cmd);
-    void insert(vector<string> cmd);
-    void update(vector<string> cmd);
-    // DCL
-    void show(vector<string> cmd);
+    void select(vector<string> cmd); // 7/2
+    void insert(vector<string> cmd); // 7
+    void update(vector<string> cmd); // 7
+    // DC
+    void show(vector<string> cmd); // 7
 private:
     vector<string> get_split_cmd();
     string del_symbol(string str, string c);
@@ -138,6 +138,7 @@ void Tcmd::create(vector<string> cmd) {
                 table.set_rows_size(1);
                 for (size_t i = 3, j = 1; cmd[i] != ")"; i++, j++) {
                     if (cmd[i] != ")" && cmd[i] != "(") {
+                        // TODO: переделать этот метод
                         table.push_col(del_symbol(cmd[i], ","));
                     }
                 }
@@ -190,17 +191,14 @@ void Tcmd::select(vector<string> cmd) {
             default: {
                 Table tbl;
                 tbl.read_file(cmd[3]);
-                tbl.out_table();
+                tbl.out_str();  // out_table бывш
             }
         }
     } else {
+
         cout << "Ошибка!\n";
         // TODO: Реализовать вывод по колонкам
-        //    - 11.05
-        //    - Есть вопросы с тем как лучше реализовать этот метод
-        //      1) Можно считать всю таблицу и в этом методе пойти по колонкам
-        //      2) Можно в классе Table
-        //    ???
+        //    tbl.print_col([Номер(имя) колонки]) -  Выведет колонку
     }
 }
 
@@ -232,7 +230,9 @@ void Tcmd::insert(vector<string> cmd) {
                     default: {
                         Table tbl;
                         tbl.read_file(cmd[2]);
-                        tbl.set_rows_size();  // + 1
+//                        tbl.set_rows_size(tbl.get_rows() + 1);
+                        tbl.set_empty_row(1);
+//                        tbl.set_rows_size(tbl.get_rows() + 1);  // + 1
                         for (size_t i = 0; i < col.size(); i++) {
                             for (size_t j = 0; j < tbl.get_cols(); j++) {
                                 if (tbl.get_elem(0, j) == col[i]) {
@@ -299,7 +299,7 @@ void Tcmd::update(vector<string> cmd) {
                         }
                     }
                 }
-            }  // UPDATE test.csv SET col1= VAL, col2= VOL, WHERE col1= val1;
+            }  // UPDATE test1.csv SET c1= VAL, c2= VOL, WHERE c1= _;
             // TODO: реализация обновления данных
             Table tbl;
             tbl.read_file(cmd[1]);
