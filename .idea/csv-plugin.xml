@@ -10,10 +10,10 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/test2.csv">
+        <entry key="/test1.csv">
           <value>
             <Attribute>
-              <option name="separator" value=";" />
+              <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
