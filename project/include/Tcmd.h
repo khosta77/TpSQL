@@ -16,6 +16,8 @@
 
 using namespace std;
 
+#define PATH_DATA_LOG "./project/data.txt"
+
 #define CREATE "create"
 #define ALTER "alter"
 #define DROP "drop"
@@ -29,25 +31,12 @@ using namespace std;
 
 #define SHOW "show"
 
+#define TABLE "table"
+#define TABLES "tables"
+#define INTO "into"
+#define VALUES "values"
 // https://habr.com/ru/post/564390/ - материал с командами
-
-/*
- * CREATE TABLE test ( col1, col2, col3);
- * // Не надо указывать тип таблицы, по умолчанию csv
- *
- * SELECT * FROM test;
- * // вывести ВСЕ элементы
- * // если вместо * col вывести все под col
- *
- * */
-#define MRK_TST 1
-
-static void fprintf(string str) {
-    if (MRK_TST == 1) {
-        std::cout << str << endl;
-    }
-}
-
+// https://www.schoolsw3.com/sql/sql_update.php
 class Tcmd {
 private:
     vector<string> tables;
@@ -60,8 +49,8 @@ private:
     void update_tables_from_memory();
     // DDL
     void create(vector<string> cmd);
-    void alter(vector<string> cmd);  // Пока что нету
     void drop(vector<string> cmd);
+    void alter(vector<string> cmd);  // Пока что нету
     // DML
     void select(vector<string> cmd);
     void insert(vector<string> cmd);
@@ -73,7 +62,8 @@ private:
     string del_symbol(string str, string c);
     string tolower(string str);
     string touper(string str);
-    bool FileIsExist(std::string filePath);
+    bool FileIsExist(string filePath);
+    bool content_symbol(string str, char symbol);
     int num_table(string table_name);
 };
 
@@ -83,6 +73,9 @@ Tcmd::Tcmd() {
     cout << "===";
     for (vector<string> cmd;;) {
         cmd = get_split_cmd();
+//        for (size_t i = 0; i < cmd.size(); i++) {
+//            cout << cmd[i] << endl;
+//        }
         if ((cmd[0] == CREATE || cmd[0] == DROP || cmd[0] == ALTER) && cmd.size() > 2) {  //
             if (cmd[0] == CREATE) {
                 create(cmd);
@@ -99,7 +92,7 @@ Tcmd::Tcmd() {
             } else if (cmd[0] == UPDATE) {
                 update(cmd);
             }
-        } else if ((cmd[0] == SHOW) && cmd.size() > 2) {
+        } else if ((cmd[0] == SHOW)) {
             show(cmd);
         } else if (cmd[0] == EXIT) { //
             cout << "Выход\n";
@@ -111,26 +104,24 @@ Tcmd::Tcmd() {
 }
 
 void Tcmd::get_tables_from_memory() {
-    if (FileIsExist("./project/data.txt")) {
+    if (FileIsExist(PATH_DATA_LOG)) {
         ifstream fin;
-        fin.open("./project/data.txt");
+        fin.open(PATH_DATA_LOG);
         string line;
         while (getline(fin, line)) {
             tables.push_back(line);
         }
         fin.close();
-        cout << "YES\n";
     } else {
-        cout << "NO\n";
         ofstream fout;
-        fout.open("./project/data.txt");
+        fout.open(PATH_DATA_LOG);
         fout.close();
     }
 }
 
 void Tcmd::update_tables_from_memory() {
     ofstream fout;
-    fout.open("./project/data.txt");
+    fout.open(PATH_DATA_LOG);
     for (size_t i = 0; i < tables.size(); i++) {
         fout << tables[i] << endl;
     }
@@ -138,7 +129,7 @@ void Tcmd::update_tables_from_memory() {
 }
 
 void Tcmd::create(vector<string> cmd) {
-    if (tolower(cmd[1]) == "table") {
+    if (tolower(cmd[1]) == TABLE) {
         tables.push_back(cmd[2]);
         update_tables_from_memory();
         Table table;
@@ -163,7 +154,7 @@ void Tcmd::create(vector<string> cmd) {
 }
 
 void Tcmd::drop(vector<string> cmd) {
-    if (tolower(cmd[1]) == "table") {
+    if (tolower(cmd[1]) == TABLE) {
         if (remove(cmd[2].c_str()) != 0) {
             std::cout << "Ошибка удаления файла" << endl;
         } else {
@@ -182,7 +173,7 @@ void Tcmd::drop(vector<string> cmd) {
 }
 
 void Tcmd::alter(vector<string> cmd) {
-    if (tolower(cmd[1]) == "table") {
+    if (tolower(cmd[1]) == TABLE) {
         // TODO: Реализовать работу команды ALTER
     } else {
         cout << "Ошибка!\n";
@@ -205,16 +196,16 @@ void Tcmd::select(vector<string> cmd) {
     } else {
         cout << "Ошибка!\n";
         // TODO: Реализовать вывод по колонкам
-        // 11.05
-        // Есть вопросы с тем как лучше реализовать этот метод
-        //   1) Можно считать всю таблицу и в этом методе пойти по колонкам
-        //   2) Можно в классе Table
-        // ???
+        //    - 11.05
+        //    - Есть вопросы с тем как лучше реализовать этот метод
+        //      1) Можно считать всю таблицу и в этом методе пойти по колонкам
+        //      2) Можно в классе Table
+        //    ???
     }
 }
 
 void Tcmd::insert(vector<string> cmd) {
-    if (tolower(cmd[1]) == "into") {
+    if (tolower(cmd[1]) == INTO) {
         vector<string> col;
         size_t mrk_end_col;
         for (size_t i = 3; i < cmd.size(); i++) {
@@ -225,8 +216,7 @@ void Tcmd::insert(vector<string> cmd) {
                 break;
             }
         }
-        cout << cmd[mrk_end_col + 1] << endl;
-        if (tolower(cmd[mrk_end_col + 1]) == "values") {
+        if (tolower(cmd[mrk_end_col + 1]) == VALUES) {
             vector<string> val;
             for (size_t i = mrk_end_col + 2; i < cmd.size(); i++) {
                 if (cmd[i] != "(" && cmd[i] != ")") {
@@ -265,11 +255,83 @@ void Tcmd::insert(vector<string> cmd) {
 }
 
 void Tcmd::update(vector<string> cmd) {
+    switch (num_table(cmd[1])) {
+        case -1: {
+            cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
+            break;
+        }
+        default: {
+            // Получение колонок в которые вставляем обновленные значени
+            vector<string> col_nval;
+            vector<string> ID_val;
+            for (size_t i = 1; i < cmd.size(); i++) {
+                if (tolower(cmd[i]) == "set") {
+//                    cout << "-->start set" << endl;
+//                    vector<string> col_nval;
+                    bool mrk_next_set = false;
+//                    cout << "---->" << cmd[i] << endl;
+                    for (size_t j = i; j < cmd.size(); j++) {
+//                        cout << "---->" << cmd[j] << endl;
+                        if (content_symbol(cmd[j], '=')) {
+//                            cout << "--->content =" << endl;
+                            col_nval.push_back(del_symbol(cmd[j], "="));
+                            mrk_next_set = true;
+                        } else if (mrk_next_set) {
+                            col_nval.push_back(del_symbol(cmd[j], ","));
+                            mrk_next_set = false;
+                        }
 
+                        if (tolower(cmd[j]) == "where") {
+//                            vector<string> ID_val;
+//                            cout << "-->start where" << endl;
+                            bool mrk_next_where = false;
+                            for (size_t k = j; k < cmd.size(); k++) {
+//                                cout << "--->" << cmd[k] << endl;
+                                if (content_symbol(cmd[k], '=')) {
+                                    ID_val.push_back(del_symbol(cmd[k], "="));
+                                    mrk_next_where = true;
+                                } else if (mrk_next_where) {
+                                    ID_val.push_back(cmd[k]);
+                                    mrk_next_where = false;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }  // UPDATE test.csv SET col1= VAL, col2= VOL, WHERE col1= val1;
+            // TODO: реализация обновления данных
+            Table tbl;
+            tbl.read_file(cmd[1]);
+            if ((ID_val.size() % 2 == 0) && (col_nval.size() % 2 == 0)) {
+                for (size_t id_c = 0, id_r = 1; id_c < ID_val.size() && id_r < ID_val.size(); id_c += 2, id_r += 2) {
+                    for (size_t r_i = 0; r_i < tbl.get_cols(); r_i++) {
+                        if (tbl.get_elem(0, r_i) == ID_val[id_c]) {
+                            for (size_t r_j = 0; r_j < tbl.get_rows(); r_j++) {
+                                if (tbl.get_elem(r_j, r_i) == ID_val[id_r]) {
+                                    // [РАБОТАЕТ] TODO: вот здесь корректно определяетс нужные строки
+                                    for (size_t col_c = 0, col_v = 1; col_c < col_nval.size() && col_v < col_nval.size(); col_c += 2, col_v += 2) {
+                                        for (size_t c_i = 0; c_i < tbl.get_cols(); c_i++) {
+                                            if (tbl.get_elem(0, c_i) == col_nval[col_c]) {
+                                                tbl.set_elem(r_j, c_i, col_nval[col_v]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                tbl.write_file(cmd[1]);
+            } else {
+                cout << "Ошибка!\n" << "--> col или row без значения\n";
+            }
+        }
+    }
 }
 
 void Tcmd::show(vector<string> cmd) {
-    if (tolower(cmd[1]) == "tables") {
+    if (tolower(cmd[1]) == TABLES) {
         for (size_t i = 0; i < tables.size(); i++) {
             cout << tables[i] << endl;
         }
@@ -278,6 +340,9 @@ void Tcmd::show(vector<string> cmd) {
     };
 }
 
+//
+// dop func
+//
 vector<string> Tcmd::get_split_cmd() {
     vector<string> mu;
     string tst;
@@ -326,14 +391,24 @@ string Tcmd::touper(string str) {
     return str;
 }
 
-bool Tcmd::FileIsExist(std::string filePath) {
+bool Tcmd::FileIsExist(string filePath) {
     bool isExist = false;
-    std::ifstream fin(filePath.c_str());
-    if(fin.is_open()) {
+    ifstream fin(filePath.c_str());
+    if (fin.is_open()) {
         isExist = true;
     }
     fin.close();
     return isExist;
+}
+
+bool Tcmd::content_symbol(string str, char symbol) {
+    bool ret = false;
+    for (size_t i = 0; i < str.size(); i++) {
+        if (str[i] == symbol) {
+            ret = true;
+        }
+    }
+    return ret;
 }
 
 int Tcmd::num_table(string table_name) {
