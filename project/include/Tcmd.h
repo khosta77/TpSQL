@@ -138,7 +138,6 @@ void Tcmd::create(vector<string> cmd) {
                 table.set_rows_size(1);
                 for (size_t i = 3, j = 1; cmd[i] != ")"; i++, j++) {
                     if (cmd[i] != ")" && cmd[i] != "(") {
-                        // TODO: переделать этот метод
                         table.push_col(del_symbol(cmd[i], ","));
                     }
                 }
@@ -194,8 +193,46 @@ void Tcmd::select(vector<string> cmd) {
                 tbl.out_str();  // out_table бывш
             }
         }
+    } else if (cmd[1] != "*") {
+        vector<string> col_name;
+        size_t num_path = -1;
+        for (size_t i = 1; i < cmd.size(); i++) {
+            if(tolower(cmd[i]) != FROM) {
+                col_name.push_back(del_symbol(cmd[i], ","));
+            } else {
+                num_path = i + 1;
+                break;
+            }
+        }
+        switch (num_table(cmd[num_path])) {
+            case -1: {
+                cout << "Таблица не найдена!" << endl;
+                break;
+            }
+            default: {
+                Table tbl, tbl_new;
+                for (size_t i = 0; i < col_name.size(); i++) {
+                    tbl_new.push_col(col_name[i]);
+                }
+                tbl.read_file(cmd[num_path]);
+                if (tbl.get_rows() > tbl_new.get_rows()) {
+                    for (size_t i = 0; i < tbl.get_rows(); i++) {
+                        tbl_new.set_empty_row(1);
+                    }
+                }
+                for (size_t j = 0; j < tbl.get_cols(); j++) {
+                    for (size_t j_new = 0; j_new < tbl_new.get_rows(); j_new++) {
+                        if (tbl.get_elem(0, j) == tbl_new.get_elem(0, j_new)) {
+                            for (size_t i = 0; i < tbl.get_rows() && i < tbl_new.get_rows(); i++) {
+                                tbl_new.set_elem(i, j_new, tbl.get_elem(i, j));
+                            }
+                        }
+                    }
+                }
+                tbl_new.out_str();  // out_table бывш
+            }
+        }
     } else {
-
         cout << "Ошибка!\n";
         // TODO: Реализовать вывод по колонкам
         //    tbl.print_col([Номер(имя) колонки]) -  Выведет колонку
