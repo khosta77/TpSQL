@@ -45,14 +45,14 @@ public:
     explicit Tcmd();
 
 private:
-    void get_tables_from_memory();
+    void get_tables_from_memory();  // Получение элементов
     void update_tables_from_memory();
     // DDL
     void create(vector<string> cmd); // 7
     void drop(vector<string> cmd); // 7
     void alter(vector<string> cmd);  // Пока что нету
     // DML
-    void select(vector<string> cmd); // 7/2
+    void select(vector<string> cmd); // 7
     void insert(vector<string> cmd); // 7
     void update(vector<string> cmd); // 7
     // DC
@@ -221,7 +221,7 @@ void Tcmd::select(vector<string> cmd) {
                     }
                 }
                 for (size_t j = 0; j < tbl.get_cols(); j++) {
-                    for (size_t j_new = 0; j_new < tbl_new.get_rows(); j_new++) {
+                    for (size_t j_new = 0; j_new < tbl_new.get_cols(); j_new++) {
                         if (tbl.get_elem(0, j) == tbl_new.get_elem(0, j_new)) {
                             for (size_t i = 0; i < tbl.get_rows() && i < tbl_new.get_rows(); i++) {
                                 tbl_new.set_elem(i, j_new, tbl.get_elem(i, j));
