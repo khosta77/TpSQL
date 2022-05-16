@@ -16,7 +16,7 @@
 using namespace std;
 
 #define PATH_DATA_LOG "./project/data.txt"
-
+#define PATH_TO_TABLES "./project/tables/"
 // DDL - Data Definition Language
 #define CREATE "create"
 #define ALTER "alter"
@@ -143,25 +143,28 @@ void Tcmd::update_tables_from_memory() {
 //
 void Tcmd::create(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE) {
-        tables.push_back(cmd[2]);
-        update_tables_from_memory();
-        Table table;
-        // TODO: Переделать это, таблица пустой создаватся не должна
         if (cmd.size() > 3) {
             if (cmd[3] == "(") {
-//                Table table;
-                table.set_rows_size(1);
-                for (size_t i = 3, j = 1; cmd[i] != ")"; i++, j++) {
-                    if (cmd[i] != ")" && cmd[i] != "(") {
-                        table.push_col(del_symbol(cmd[i], ","));
+                Table tbl
+                tbl.set_rows_size(1);
+                for (size_t i = 3; i < cmd[i].size(); i++) {
+                    if (content_symbol(cmd[i], ')')) {
+                        tbl.push_col(del_symbol(cmd[i], ")"));
+                        break;
+                    } else if (cmd[i] == ")") {
+                        break;
+                    } else {
+                        tbl.push_col(del_symbol(cmd[i], ","));
                     }
                 }
-                table.write_file(cmd[2]);
+                tbl.write_file(PATH_TO_TABLES + cmd[2]);
+                this->tables.push_back(cmd[2]);
+                update_tables_from_memory();
             } else {
-                table.write_file(cmd[2]);
+                std::cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
             }
         } else {
-            table.write_file(cmd[2]);
+            std::cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
         }
     } else {
         cout << "Ошибка!\n";
@@ -170,7 +173,7 @@ void Tcmd::create(vector<string> cmd) {
 
 void Tcmd::drop(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE) {
-        if (remove(cmd[2].c_str()) != 0) {
+        if (remove((PATH_TO_TABLES + cmd[2]).c_str()) != 0) {
             std::cout << "Ошибка!\n" << "--> Ошибка удаления файла" << endl;
         } else {
             for (size_t i = 0; i < tables.size(); i++) {
@@ -189,7 +192,7 @@ void Tcmd::drop(vector<string> cmd) {
 
 void Tcmd::alter(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE && cmd.size() == 5) {
-        switch (num_table(cmd[2])) {
+        switch (num_table(PATH_TO_TABLES + cmd[2])) {
             case -1: {
                 cout << "Ошибка!\n" << "--> Таблица не найдена!" << endl;
                 break;
@@ -197,7 +200,7 @@ void Tcmd::alter(vector<string> cmd) {
             default: {
                 if (tolower(cmd[3]) == ADD) {  // Добавление столбца в конец
                     Table tbl;
-                    tbl.read_file(cmd[2]);
+                    tbl.read_file(PATH_TO_TABLES + cmd[2]);
                     Table new_tbl;
                     for (size_t i = 0; i < tbl.get_cols(); i++) {
                         new_tbl.push_col(tbl.get_elem(0, i));
@@ -213,10 +216,10 @@ void Tcmd::alter(vector<string> cmd) {
                             new_tbl.set_elem(i, j, tbl.get_elem(i, j));
                         }
                     }
-                    new_tbl.write_file(cmd[2]);
+                    new_tbl.write_file(PATH_TO_TABLES + cmd[2]);
                 } else if (tolower(cmd[3]) == DROP) {
                     Table tbl;
-                    tbl.read_file(cmd[2]);
+                    tbl.read_file(PATH_TO_TABLES + cmd[2]);
                     Table new_tbl;
                     size_t control_del = -1;
                     tbl.out_str();
@@ -244,7 +247,7 @@ void Tcmd::alter(vector<string> cmd) {
                             }
                         }
                     }
-                    new_tbl.write_file(cmd[2]);
+                    new_tbl.write_file(PATH_TO_TABLES + cmd[2]);
                 } else {
                     cout << "Ошибка!\n" << "--> Команда не распознана" << endl;
                 }
@@ -252,15 +255,15 @@ void Tcmd::alter(vector<string> cmd) {
         }
     } else if (tolower(cmd[1]) == TABLE && cmd.size() == 6) {
         if (tolower(cmd[3]) == RENAME && tolower(cmd[4]) == TO) {
-            switch (num_table(cmd[2])) {
+            switch (num_table(PATH_TO_TABLES + cmd[2])) {
                 case -1: {
                     cout << "Ошибка!\n" << "--> Таблица не найдена!" << endl;
                     break;
                 }
                 default: {
                     Table tbl;
-                    tbl.read_file(cmd[2]);
-                    if (remove(cmd[2].c_str()) != 0) {
+                    tbl.read_file(PATH_TO_TABLES + cmd[2]);
+                    if (remove((PATH_TO_TABLES + cmd[2]).c_str()) != 0) {
                         std::cout << "Ошибка!\n" << "--> Переименновывания файла" << endl;
                     } else {
                         for (size_t i = 0; i < tables.size(); i++) {
@@ -272,7 +275,7 @@ void Tcmd::alter(vector<string> cmd) {
                         update_tables_from_memory();
                         tables.push_back(cmd[5]);
                         update_tables_from_memory();
-                        tbl.write_file(cmd[5]);
+                        tbl.write_file(PATH_TO_TABLES + cmd[5]);
                     }
                 }
             }
@@ -287,14 +290,14 @@ void Tcmd::alter(vector<string> cmd) {
 //
 void Tcmd::select(vector<string> cmd) {
     if (cmd[1] == "*" && cmd.size() == 4) {
-        switch (num_table(cmd[3])) {
+        switch (num_table(PATH_TO_TABLES + cmd[3])) {
             case -1: {
                 cout << "Таблица не найдена!" << endl;
                 break;
             }
             default: {
                 Table tbl;
-                tbl.read_file(cmd[3]);
+                tbl.read_file(PATH_TO_TABLES + cmd[3]);
                 tbl.out_str();  // out_table бывш
             }
         }
@@ -309,7 +312,7 @@ void Tcmd::select(vector<string> cmd) {
                 break;
             }
         }
-        switch (num_table(cmd[num_path])) {
+        switch (num_table(PATH_TO_TABLES + cmd[num_path])) {
             case -1: {
                 cout << "Таблица не найдена!" << endl;
                 break;
@@ -319,7 +322,7 @@ void Tcmd::select(vector<string> cmd) {
                 for (size_t i = 0; i < col_name.size(); i++) {
                     tbl_new.push_col(col_name[i]);
                 }
-                tbl.read_file(cmd[num_path]);
+                tbl.read_file(PATH_TO_TABLES + cmd[num_path]);
                 if (tbl.get_rows() > tbl_new.get_rows()) {
                     for (size_t i = 0; i < tbl.get_rows(); i++) {
                         tbl_new.set_empty_row(1);
@@ -362,14 +365,14 @@ void Tcmd::insert(vector<string> cmd) {
                 }
             }
             if (val.size() == col.size()) {
-                switch (num_table(cmd[2])) {
+                switch (num_table(PATH_TO_TABLES + cmd[2])) {
                     case -1: {
                         cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
                         break;
                     }
                     default: {
                         Table tbl;
-                        tbl.read_file(cmd[2]);
+                        tbl.read_file(PATH_TO_TABLES + cmd[2]);
                         tbl.set_empty_row(1);
                         for (size_t i = 0; i < col.size(); i++) {
                             for (size_t j = 0; j < tbl.get_cols(); j++) {
@@ -378,7 +381,7 @@ void Tcmd::insert(vector<string> cmd) {
                                 }
                             }
                         }
-                        tbl.write_file(cmd[2]);
+                        tbl.write_file(PATH_TO_TABLES + cmd[2]);
                     }
                 }
             } else {
@@ -393,7 +396,7 @@ void Tcmd::insert(vector<string> cmd) {
 }
 
 void Tcmd::update(vector<string> cmd) {
-    switch (num_table(cmd[1])) {
+    switch (num_table(PATH_TO_TABLES + cmd[1])) {
         case -1: {
             cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
             break;
@@ -431,7 +434,7 @@ void Tcmd::update(vector<string> cmd) {
                 }
             }
             Table tbl;
-            tbl.read_file(cmd[1]);
+            tbl.read_file(PATH_TO_TABLES + cmd[1]);
             if ((ID_val.size() % 2 == 0) && (col_nval.size() % 2 == 0)) {
                 for (size_t id_c = 0, id_r = 1; id_c < ID_val.size() && id_r < ID_val.size();
                                                                                       id_c += 2, id_r += 2) {
@@ -453,7 +456,7 @@ void Tcmd::update(vector<string> cmd) {
                         }
                     }
                 }
-                tbl.write_file(cmd[1]);
+                tbl.write_file(PATH_TO_TABLES + cmd[1]);
             } else {
                 cout << "Ошибка!\n" << "--> col или row без значения\n";
             }
