@@ -1,6 +1,12 @@
-/TpSQL
 data.txt
-./cmake-build-debug/*
+
+# Compiled Object files
+*.o
+*.slo
+*.ko
+*.lo
+*.obj
+*.elf
 
 # Local
 local*
