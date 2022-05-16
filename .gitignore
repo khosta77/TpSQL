@@ -1,0 +1,21 @@
+data.txt
+CMakeFiles/TpSQL.dir/main.cpp.o
+.idea/csv-plugin.xml
+TpSQL
+# Compiled Object files
+*.o
+*.slo
+*.ko
+*.lo
+*.obj
+*.elf
+
+# Local
+local*
+.idea/
+.vscode/
+CMakeFiles/
+cmake-build-debug/
+.DS_Store
+venv
+*.log
