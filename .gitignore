@@ -1,5 +1,7 @@
 data.txt
-
+CMakeFiles/TpSQL.dir/main.cpp.o
+.idea/csv-plugin.xml
+TpSQL
 # Compiled Object files
 *.o
 *.slo
