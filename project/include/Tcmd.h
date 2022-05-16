@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//#include <pair>
 #include <iomanip>
 #include <algorithm>
 #include <cctype>
@@ -18,25 +17,29 @@ using namespace std;
 
 #define PATH_DATA_LOG "./project/data.txt"
 
+// DDL - Data Definition Language
 #define CREATE "create"
 #define ALTER "alter"
 #define DROP "drop"
-
+// DML - Data Manipulation Language
 #define SELECT "select"
 #define INSERT "insert"
 #define UPDATE "update"
-
+// DCL - Data Control Language
+#define SHOW "show"
+// DAL - Data Additionl Language
 #define FROM "from"
 #define EXIT "exit"
-
-#define SHOW "show"
-
 #define TABLE "table"
 #define TABLES "tables"
 #define INTO "into"
 #define VALUES "values"
-// https://habr.com/ru/post/564390/ - материал с командами
-// https://www.schoolsw3.com/sql/sql_update.php
+
+// TODO: полезные ссылки
+//   https://habr.com/ru/post/564390/
+//   https://www.schoolsw3.com/sql/sql_update.php
+// (Стереть в финальной версии)
+
 class Tcmd {
 private:
     vector<string> tables;
@@ -45,38 +48,39 @@ public:
     explicit Tcmd();
 
 private:
-    void get_tables_from_memory();  // Получение элементов
-    void update_tables_from_memory();
-    // DDL
-    void create(vector<string> cmd); // 7
-    void drop(vector<string> cmd); // 7
+    void get_tables_from_memory();  // Получение элементов tables из памяти или создание памяти
+    void update_tables_from_memory();  // Обновление памяти
+    /* Методы ниже представляют собой команды TpSQL */
+    // DDL - Data Definition Language
+    void create(vector<string> cmd);
+    void drop(vector<string> cmd);
     void alter(vector<string> cmd);  // Пока что нету
-    // DML
-    void select(vector<string> cmd); // 7
-    void insert(vector<string> cmd); // 7
-    void update(vector<string> cmd); // 7
-    // DC
-    void show(vector<string> cmd); // 7
+    // DML - Data Manipulation Language
+    void select(vector<string> cmd);
+    void insert(vector<string> cmd);
+    void update(vector<string> cmd);
+    // DCL - Data Control Language
+    void show(vector<string> cmd);
 private:
-    vector<string> get_split_cmd();
-    string del_symbol(string str, string c);
-    string tolower(string str);
-    string touper(string str);
-    bool FileIsExist(string filePath);
-    bool content_symbol(string str, char symbol);
-    int num_table(string table_name);
+    // Additional functions
+    vector<string> get_split_cmd();  // Получение введенной команды для ее последующего анализа
+    string del_symbol(string str, string c);  // Удалит в str символ c
+    string tolower(string str);  // А -> а
+    string touper(string str);  // a -> A
+    bool FileIsExist(string filePath);  // Существет файл или нет
+    bool content_symbol(string str, char symbol);  // Содержит str символ symbol или нет
+    int num_table(string table_name);  // Status - есть таблица в системе или нет (-1)
 };
 
+//
 // Construct/destruct
+//
 Tcmd::Tcmd() {
     get_tables_from_memory();
     cout << "===";
     for (vector<string> cmd;;) {
         cmd = get_split_cmd();
-//        for (size_t i = 0; i < cmd.size(); i++) {
-//            cout << cmd[i] << endl;
-//        }
-        if ((cmd[0] == CREATE || cmd[0] == DROP || cmd[0] == ALTER) && cmd.size() > 2) {  //
+        if ((cmd[0] == CREATE || cmd[0] == DROP || cmd[0] == ALTER) && cmd.size() > 2) {
             if (cmd[0] == CREATE) {
                 create(cmd);
             } else if (cmd[0] == DROP) {
@@ -84,7 +88,7 @@ Tcmd::Tcmd() {
             } else if (cmd[0] == ALTER) {
                 alter(cmd);
             }
-        } else if ((cmd[0] == SELECT || cmd[0] == INSERT || cmd[0] == UPDATE) && cmd.size() > 2) {  //
+        } else if ((cmd[0] == SELECT || cmd[0] == INSERT || cmd[0] == UPDATE) && cmd.size() > 2) {
             if (cmd[0] == SELECT) {
                 select(cmd);
             } else if (cmd[0] == INSERT) {
@@ -94,10 +98,10 @@ Tcmd::Tcmd() {
             }
         } else if ((cmd[0] == SHOW)) {
             show(cmd);
-        } else if (cmd[0] == EXIT) { //
+        } else if (cmd[0] == EXIT) {
             cout << "Выход\n";
             break;
-        } else { //
+        } else {
             cout << "Ошибка!\n";
         }
     }
@@ -128,6 +132,9 @@ void Tcmd::update_tables_from_memory() {
     fout.close();
 }
 
+//
+// DDL - Data Definition Language
+//
 void Tcmd::create(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE) {
         tables.push_back(cmd[2]);
@@ -180,6 +187,9 @@ void Tcmd::alter(vector<string> cmd) {
     }
 }
 
+//
+// DML - Data Manipulation Language
+//
 void Tcmd::select(vector<string> cmd) {
     if (cmd[1] == "*" && cmd.size() == 4) {
         switch (num_table(cmd[3])) {
@@ -234,8 +244,6 @@ void Tcmd::select(vector<string> cmd) {
         }
     } else {
         cout << "Ошибка!\n";
-        // TODO: Реализовать вывод по колонкам
-        //    tbl.print_col([Номер(имя) колонки]) -  Выведет колонку
     }
 }
 
@@ -267,9 +275,7 @@ void Tcmd::insert(vector<string> cmd) {
                     default: {
                         Table tbl;
                         tbl.read_file(cmd[2]);
-//                        tbl.set_rows_size(tbl.get_rows() + 1);
                         tbl.set_empty_row(1);
-//                        tbl.set_rows_size(tbl.get_rows() + 1);  // + 1
                         for (size_t i = 0; i < col.size(); i++) {
                             for (size_t j = 0; j < tbl.get_cols(); j++) {
                                 if (tbl.get_elem(0, j) == col[i]) {
@@ -303,14 +309,9 @@ void Tcmd::update(vector<string> cmd) {
             vector<string> ID_val;
             for (size_t i = 1; i < cmd.size(); i++) {
                 if (tolower(cmd[i]) == "set") {
-//                    cout << "-->start set" << endl;
-//                    vector<string> col_nval;
                     bool mrk_next_set = false;
-//                    cout << "---->" << cmd[i] << endl;
                     for (size_t j = i; j < cmd.size(); j++) {
-//                        cout << "---->" << cmd[j] << endl;
                         if (content_symbol(cmd[j], '=')) {
-//                            cout << "--->content =" << endl;
                             col_nval.push_back(del_symbol(cmd[j], "="));
                             mrk_next_set = true;
                         } else if (mrk_next_set) {
@@ -319,11 +320,8 @@ void Tcmd::update(vector<string> cmd) {
                         }
 
                         if (tolower(cmd[j]) == "where") {
-//                            vector<string> ID_val;
-//                            cout << "-->start where" << endl;
                             bool mrk_next_where = false;
                             for (size_t k = j; k < cmd.size(); k++) {
-//                                cout << "--->" << cmd[k] << endl;
                                 if (content_symbol(cmd[k], '=')) {
                                     ID_val.push_back(del_symbol(cmd[k], "="));
                                     mrk_next_where = true;
@@ -336,18 +334,19 @@ void Tcmd::update(vector<string> cmd) {
                         }
                     }
                 }
-            }  // UPDATE test1.csv SET c1= VAL, c2= VOL, WHERE c1= _;
-            // TODO: реализация обновления данных
+            }
             Table tbl;
             tbl.read_file(cmd[1]);
             if ((ID_val.size() % 2 == 0) && (col_nval.size() % 2 == 0)) {
-                for (size_t id_c = 0, id_r = 1; id_c < ID_val.size() && id_r < ID_val.size(); id_c += 2, id_r += 2) {
+                for (size_t id_c = 0, id_r = 1; id_c < ID_val.size() && id_r < ID_val.size();
+                                                                                      id_c += 2, id_r += 2) {
                     for (size_t r_i = 0; r_i < tbl.get_cols(); r_i++) {
                         if (tbl.get_elem(0, r_i) == ID_val[id_c]) {
                             for (size_t r_j = 0; r_j < tbl.get_rows(); r_j++) {
-                                if (tbl.get_elem(r_j, r_i) == ID_val[id_r]) {
-                                    // [РАБОТАЕТ] TODO: вот здесь корректно определяетс нужные строки
-                                    for (size_t col_c = 0, col_v = 1; col_c < col_nval.size() && col_v < col_nval.size(); col_c += 2, col_v += 2) {
+                                if (tbl.get_elem(r_j, r_i) == ID_val[id_r]) { // корректно работает
+                                    for (size_t col_c = 0, col_v = 1;
+                                                col_c < col_nval.size() && col_v < col_nval.size();
+                                                                           col_c += 2, col_v += 2) {
                                         for (size_t c_i = 0; c_i < tbl.get_cols(); c_i++) {
                                             if (tbl.get_elem(0, c_i) == col_nval[col_c]) {
                                                 tbl.set_elem(r_j, c_i, col_nval[col_v]);
@@ -367,6 +366,9 @@ void Tcmd::update(vector<string> cmd) {
     }
 }
 
+//
+// DCL - Data Control Language
+//
 void Tcmd::show(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLES) {
         for (size_t i = 0; i < tables.size(); i++) {
@@ -378,7 +380,7 @@ void Tcmd::show(vector<string> cmd) {
 }
 
 //
-// dop func
+// Additional functions
 //
 vector<string> Tcmd::get_split_cmd() {
     vector<string> mu;
