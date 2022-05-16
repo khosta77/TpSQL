@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/untitled4.dir/main.cpp.o -o untitled4 

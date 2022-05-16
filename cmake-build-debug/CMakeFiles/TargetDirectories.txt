@@ -1,3 +1,0 @@
-/mnt/c/Users/Daniil/CLionProjects/untitled4/cmake-build-debug/CMakeFiles/untitled4.dir
-/mnt/c/Users/Daniil/CLionProjects/untitled4/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/c/Users/Daniil/CLionProjects/untitled4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
