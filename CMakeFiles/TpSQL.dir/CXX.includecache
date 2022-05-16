@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/stepan/C++/techonparkproject/main.cpp
+./project/include/Table.h
+/home/stepan/C++/techonparkproject/project/include/Table.h
+./project/include/Tcmd.h
+/home/stepan/C++/techonparkproject/project/include/Tcmd.h
+
+/home/stepan/C++/techonparkproject/project/include/Table.h
+iostream
+-
+string
+-
+vector
+-
+iomanip
+-
+
+/home/stepan/C++/techonparkproject/project/include/Tcmd.h
+iostream
+-
+string
+-
+vector
+-
+iomanip
+-
+algorithm
+-
+cctype
+-
+iomanip
+-
+fstream
+-
+cstdio
+-
+Table.h
+/home/stepan/C++/techonparkproject/project/include/Table.h
+

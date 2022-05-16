@@ -14,7 +14,6 @@ TpSQL
 local*
 .idea/
 .vscode/
-CMakeFiles/
 cmake-build-debug/
 .DS_Store
 venv
