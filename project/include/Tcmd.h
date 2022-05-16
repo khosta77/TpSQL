@@ -34,6 +34,12 @@ using namespace std;
 #define TABLES "tables"
 #define INTO "into"
 #define VALUES "values"
+#define SET "set"
+#define WHERE "where"
+#define ADD "add"
+#define DROP "drop"
+#define RENAME "rename"
+#define TO "to"
 
 // TODO: полезные ссылки
 //   https://habr.com/ru/post/564390/
@@ -54,7 +60,7 @@ private:
     // DDL - Data Definition Language
     void create(vector<string> cmd);
     void drop(vector<string> cmd);
-    void alter(vector<string> cmd);  // Пока что нету
+    void alter(vector<string> cmd);
     // DML - Data Manipulation Language
     void select(vector<string> cmd);
     void insert(vector<string> cmd);
@@ -85,7 +91,7 @@ Tcmd::Tcmd() {
                 create(cmd);
             } else if (cmd[0] == DROP) {
                 drop(cmd);
-            } else if (cmd[0] == ALTER) {
+            } else if (cmd[0] == ALTER && cmd.size() >= 5) {
                 alter(cmd);
             }
         } else if ((cmd[0] == SELECT || cmd[0] == INSERT || cmd[0] == UPDATE) && cmd.size() > 2) {
@@ -140,8 +146,10 @@ void Tcmd::create(vector<string> cmd) {
         tables.push_back(cmd[2]);
         update_tables_from_memory();
         Table table;
+        // TODO: Переделать это, таблица пустой создаватся не должна
         if (cmd.size() > 3) {
             if (cmd[3] == "(") {
+//                Table table;
                 table.set_rows_size(1);
                 for (size_t i = 3, j = 1; cmd[i] != ")"; i++, j++) {
                     if (cmd[i] != ")" && cmd[i] != "(") {
@@ -163,7 +171,7 @@ void Tcmd::create(vector<string> cmd) {
 void Tcmd::drop(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE) {
         if (remove(cmd[2].c_str()) != 0) {
-            std::cout << "Ошибка удаления файла" << endl;
+            std::cout << "Ошибка!\n" << "--> Ошибка удаления файла" << endl;
         } else {
             for (size_t i = 0; i < tables.size(); i++) {
                 if (tables[i] == cmd[2]) {
@@ -180,8 +188,95 @@ void Tcmd::drop(vector<string> cmd) {
 }
 
 void Tcmd::alter(vector<string> cmd) {
-    if (tolower(cmd[1]) == TABLE) {
-        // TODO: Реализовать работу команды ALTER
+    if (tolower(cmd[1]) == TABLE && cmd.size() == 5) {
+        switch (num_table(cmd[2])) {
+            case -1: {
+                cout << "Ошибка!\n" << "--> Таблица не найдена!" << endl;
+                break;
+            }
+            default: {
+                if (tolower(cmd[3]) == ADD) {  // Добавление столбца в конец
+                    Table tbl;
+                    tbl.read_file(cmd[2]);
+                    Table new_tbl;
+                    for (size_t i = 0; i < tbl.get_cols(); i++) {
+                        new_tbl.push_col(tbl.get_elem(0, i));
+                    }
+                    new_tbl.push_col(cmd[4]);
+                    if (tbl.get_rows() > new_tbl.get_rows()) {
+                        for (size_t i = 0; i < tbl.get_rows(); i++) {
+                            new_tbl.set_empty_row(1);
+                        }
+                    }
+                    for (size_t i = 1; i < tbl.get_rows(); i++) {
+                        for (size_t j = 0; j < tbl.get_cols(); j++) {
+                            new_tbl.set_elem(i, j, tbl.get_elem(i, j));
+                        }
+                    }
+                    new_tbl.write_file(cmd[2]);
+                } else if (tolower(cmd[3]) == DROP) {
+                    Table tbl;
+                    tbl.read_file(cmd[2]);
+                    Table new_tbl;
+                    size_t control_del = -1;
+                    tbl.out_str();
+                    for (size_t i = 0; i < tbl.get_cols(); i++) {
+                        if (tbl.get_elem(0, i) != cmd[4]) {
+                            new_tbl.push_col(tbl.get_elem(0, i));
+                        } else {
+                            control_del = i;
+                        }
+                    }
+                    if (control_del == -1) {
+                        cout << "Ошибка!\n" << "--> В таблица нет такой колонки!" << endl;
+                    }
+                    if (tbl.get_rows() > new_tbl.get_rows()) {
+                        for (size_t i = 0; i < tbl.get_rows(); i++) {
+                            new_tbl.set_empty_row(1);
+                        }
+                    }
+                    for (size_t i = 0; i < tbl.get_rows(); i++) {
+                        for (size_t j = 0, cof = 0; j < tbl.get_cols(); j++) {
+                            if (j != control_del) {
+                                new_tbl.set_elem(i, j - cof, tbl.get_elem(i, j));
+                            } else {
+                                cof = 1;
+                            }
+                        }
+                    }
+                    new_tbl.write_file(cmd[2]);
+                } else {
+                    cout << "Ошибка!\n" << "--> Команда не распознана" << endl;
+                }
+            }
+        }
+    } else if (tolower(cmd[1]) == TABLE && cmd.size() == 6) {
+        if (tolower(cmd[3]) == RENAME && tolower(cmd[4]) == TO) {
+            switch (num_table(cmd[2])) {
+                case -1: {
+                    cout << "Ошибка!\n" << "--> Таблица не найдена!" << endl;
+                    break;
+                }
+                default: {
+                    Table tbl;
+                    tbl.read_file(cmd[2]);
+                    if (remove(cmd[2].c_str()) != 0) {
+                        std::cout << "Ошибка!\n" << "--> Переименновывания файла" << endl;
+                    } else {
+                        for (size_t i = 0; i < tables.size(); i++) {
+                            if (tables[i] == cmd[2]) {
+                                tables.erase(tables.begin() + i);
+                                vector<string>(tables).swap(tables);
+                            }
+                        }
+                        update_tables_from_memory();
+                        tables.push_back(cmd[5]);
+                        update_tables_from_memory();
+                        tbl.write_file(cmd[5]);
+                    }
+                }
+            }
+        }
     } else {
         cout << "Ошибка!\n";
     }
@@ -308,7 +403,7 @@ void Tcmd::update(vector<string> cmd) {
             vector<string> col_nval;
             vector<string> ID_val;
             for (size_t i = 1; i < cmd.size(); i++) {
-                if (tolower(cmd[i]) == "set") {
+                if (tolower(cmd[i]) == SET) {
                     bool mrk_next_set = false;
                     for (size_t j = i; j < cmd.size(); j++) {
                         if (content_symbol(cmd[j], '=')) {
@@ -319,7 +414,7 @@ void Tcmd::update(vector<string> cmd) {
                             mrk_next_set = false;
                         }
 
-                        if (tolower(cmd[j]) == "where") {
+                        if (tolower(cmd[j]) == WHERE) {
                             bool mrk_next_where = false;
                             for (size_t k = j; k < cmd.size(); k++) {
                                 if (content_symbol(cmd[k], '=')) {
