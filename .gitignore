@@ -1,2 +1,11 @@
-TpSQL
+/TpSQL
 data.txt
+./cmake-build-debug/*
+
+# Local
+local*
+.idea/
+.vscode/
+.DS_Store
+venv
+*.log
