@@ -1,3 +1,0 @@
-/home/stepan/C++/techonparkproject/CMakeFiles/rebuild_cache.dir
-/home/stepan/C++/techonparkproject/CMakeFiles/edit_cache.dir
-/home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir

@@ -1,3 +1,4 @@
+# файлы которые можно и стереть
 data.txt
 CMakeFiles/TpSQL.dir/main.cpp.o
 .idea/csv-plugin.xml
@@ -14,7 +15,6 @@ CMakeFiles/TpSQL.dir/flags.make
 CMakeFiles/TpSQL.dir/progress.make
 CMakeFiles/TpSQL.dir/project
 CMakeFiles/TpSQL.dir/project/
-
 CMakeFiles/Makefile2
 CMakeFiles/progress.marks
 CMakeFiles/TargetDirectories.txt
