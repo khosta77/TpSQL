@@ -17,6 +17,7 @@ using namespace std;
 
 #define PATH_DATA_LOG "./project/data.txt"
 #define PATH_TO_TABLES "./project/tables/"
+#define CSV ".csv"
 // DDL - Data Definition Language
 #define CREATE "create"
 #define ALTER "alter"
@@ -50,6 +51,7 @@ using namespace std;
 
 /*
 TODO: Чтобы таблица по умолчанию создавалась формата (.csv)
+ - Добавлено
 
 TODO: Считывание готовых таблиц
 

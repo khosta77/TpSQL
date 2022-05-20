@@ -37,7 +37,7 @@ Tcmd::Tcmd() {
         }
     }
 }
-
+// git add project/include/Tcmd.h project/src/Tcmd.cpp; git commit -m "Добавлено чтение из .csv по умолчанию"
 void Tcmd::get_tables_from_memory() {
     if (FileIsExist(PATH_DATA_LOG)) {
         ifstream fin;
@@ -79,8 +79,8 @@ void Tcmd::create(vector<string> cmd) {
                         tbl.push_col(del_symbol(cmd[i], ","));
                     }
                 }
-                tbl.write_file(PATH_TO_TABLES + cmd[2]);
-                this->tables.push_back(cmd[2]);
+                tbl.write_file(PATH_TO_TABLES + cmd[2] + CSV);
+                this->tables.push_back(cmd[2] + CSV);
                 update_tables_from_memory();
             } else {
                 std::cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
@@ -95,11 +95,11 @@ void Tcmd::create(vector<string> cmd) {
 
 void Tcmd::drop(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE) {
-        if (remove((PATH_TO_TABLES + cmd[2]).c_str()) != 0) {
+        if (remove((PATH_TO_TABLES + cmd[2] + CSV).c_str()) != 0) {
             std::cout << "Ошибка!\n" << "--> Ошибка удаления файла" << endl;
         } else {
             for (size_t i = 0; i < tables.size(); i++) {
-                if (tables[i] == cmd[2]) {
+                if (tables[i] == (cmd[2] + CSV)) {
                     tables.erase(tables.begin() + i);
                     vector<string>(tables).swap(tables);
                 }
@@ -114,7 +114,7 @@ void Tcmd::drop(vector<string> cmd) {
 
 void Tcmd::alter(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE && cmd.size() == 5) {
-        switch (num_table(cmd[2])) {
+        switch (num_table(cmd[2] + CSV)) {
             case -1: {
                 cout << "Ошибка!\n" << "--> Таблица не найдена!" << endl;
                 break;
@@ -122,7 +122,7 @@ void Tcmd::alter(vector<string> cmd) {
             default: {
                 if (tolower(cmd[3]) == ADD) {  // Добавление столбца в конец
                     Table tbl;
-                    tbl.read_file(PATH_TO_TABLES + cmd[2]);
+                    tbl.read_file(PATH_TO_TABLES + cmd[2] + CSV);
                     Table new_tbl;
                     for (size_t i = 0; i < tbl.get_cols(); i++) {
                         new_tbl.push_col(tbl.get_elem(0, i));
@@ -138,10 +138,10 @@ void Tcmd::alter(vector<string> cmd) {
                             new_tbl.set_elem(i, j, tbl.get_elem(i, j));
                         }
                     }
-                    new_tbl.write_file(PATH_TO_TABLES + cmd[2]);
+                    new_tbl.write_file(PATH_TO_TABLES + cmd[2] + CSV);
                 } else if (tolower(cmd[3]) == DROP) {
                     Table tbl;
-                    tbl.read_file(PATH_TO_TABLES + cmd[2]);
+                    tbl.read_file(PATH_TO_TABLES + cmd[2] + CSV);
                     Table new_tbl;
                     size_t control_del = -1;
 //                    tbl.out_str();
@@ -169,7 +169,7 @@ void Tcmd::alter(vector<string> cmd) {
                             }
                         }
                     }
-                    new_tbl.write_file(PATH_TO_TABLES + cmd[2]);
+                    new_tbl.write_file(PATH_TO_TABLES + cmd[2] + CSV);
                 } else {
                     cout << "Ошибка!\n" << "--> Команда не распознана" << endl;
                 }
@@ -189,7 +189,7 @@ void Tcmd::alter(vector<string> cmd) {
                         std::cout << "Ошибка!\n" << "--> Переименновывания файла" << endl;
                     } else {
                         for (size_t i = 0; i < tables.size(); i++) {
-                            if (tables[i] == cmd[2]) {
+                            if (tables[i] == (cmd[2] + CSV)) {
                                 tables.erase(tables.begin() + i);
                                 vector<string>(tables).swap(tables);
                             }
@@ -197,7 +197,7 @@ void Tcmd::alter(vector<string> cmd) {
                         update_tables_from_memory();
                         tables.push_back(cmd[5]);
                         update_tables_from_memory();
-                        tbl.write_file(PATH_TO_TABLES + cmd[5]);
+                        tbl.write_file(PATH_TO_TABLES + cmd[5] + CSV);
                     }
                 }
             }
@@ -212,14 +212,14 @@ void Tcmd::alter(vector<string> cmd) {
 //
 void Tcmd::select(vector<string> cmd) {
     if (cmd[1] == "*" && cmd.size() == 4) {
-        switch (num_table(cmd[3])) {
+        switch (num_table(cmd[3] + CSV)) {
             case -1: {
                 cout << "Таблица не найдена!" << endl;
                 break;
             }
             default: {
                 Table tbl;
-                tbl.read_file(PATH_TO_TABLES + cmd[3]);
+                tbl.read_file(PATH_TO_TABLES + cmd[3] + CSV);
                 tbl.out_str();  // out_table бывш
             }
         }
@@ -234,7 +234,7 @@ void Tcmd::select(vector<string> cmd) {
                 break;
             }
         }
-        switch (num_table(cmd[num_path])) {
+        switch (num_table(cmd[num_path]  + CSV)) {
             case -1: {
                 cout << "Таблица не найдена!" << endl;
                 break;
@@ -244,7 +244,7 @@ void Tcmd::select(vector<string> cmd) {
                 for (size_t i = 0; i < col_name.size(); i++) {
                     tbl_new.push_col(col_name[i]);
                 }
-                tbl.read_file(PATH_TO_TABLES + cmd[num_path]);
+                tbl.read_file(PATH_TO_TABLES + cmd[num_path] + CSV);
                 if (tbl.get_rows() > tbl_new.get_rows()) {
                     for (size_t i = 0; i < tbl.get_rows(); i++) {
                         tbl_new.set_empty_row(1);
@@ -287,14 +287,14 @@ void Tcmd::insert(vector<string> cmd) {
                 }
             }
             if (val.size() == col.size()) {
-                switch (num_table(cmd[2])) {
+                switch (num_table(cmd[2] + CSV)) {
                     case -1: {
                         cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
                         break;
                     }
                     default: {
                         Table tbl;
-                        tbl.read_file(PATH_TO_TABLES + cmd[2]);
+                        tbl.read_file(PATH_TO_TABLES + cmd[2] + CSV);
                         tbl.set_empty_row(1);
                         for (size_t i = 0; i < col.size(); i++) {
                             for (size_t j = 0; j < tbl.get_cols(); j++) {
@@ -303,7 +303,7 @@ void Tcmd::insert(vector<string> cmd) {
                                 }
                             }
                         }
-                        tbl.write_file(PATH_TO_TABLES + cmd[2]);
+                        tbl.write_file(PATH_TO_TABLES + cmd[2] + CSV);
                     }
                 }
             } else {
@@ -318,7 +318,7 @@ void Tcmd::insert(vector<string> cmd) {
 }
 
 void Tcmd::update(vector<string> cmd) {
-    switch (num_table(cmd[1])) {
+    switch (num_table(cmd[1] + CSV)) {
         case -1: {
             cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
             break;
@@ -356,7 +356,7 @@ void Tcmd::update(vector<string> cmd) {
                 }
             }
             Table tbl;
-            tbl.read_file(PATH_TO_TABLES + cmd[1]);
+            tbl.read_file(PATH_TO_TABLES + cmd[1] + CSV);
             if ((ID_val.size() % 2 == 0) && (col_nval.size() % 2 == 0)) {
                 for (size_t id_c = 0, id_r = 1; id_c < ID_val.size() && id_r < ID_val.size();
                      id_c += 2, id_r += 2) {
@@ -378,7 +378,7 @@ void Tcmd::update(vector<string> cmd) {
                         }
                     }
                 }
-                tbl.write_file(PATH_TO_TABLES + cmd[1]);
+                tbl.write_file(PATH_TO_TABLES + cmd[1] + CSV);
             } else {
                 cout << "Ошибка!\n" << "--> col или row без значения\n";
             }
