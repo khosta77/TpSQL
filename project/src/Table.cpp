@@ -195,3 +195,32 @@ void Table::set_rows_size() {
 //        table.push_back(" ");
 //    }
 }
+
+// Узнаем ширину таблицы при выводе
+size_t Table::get_width_table() {
+    size_t width = 0;
+    for (size_t i = 0; i < cols; i++) {
+        width = width + max_elem_size_in_col(tab, rows, cols, i) + 3;
+    }
+
+    return width;
+}
+
+size_t Table::get_max_width_col() {
+    int max_elem_width = max_elem_size_in_col(tab, rows, cols, 0);
+    size_t max_width_col = 0;
+    for (int i = 1; i < cols; i++) {
+        if (max_elem_size_in_col(tab, rows, cols, i) > max_elem_width) {
+            max_elem_width = max_elem_size_in_col(tab, rows, cols, i);
+            max_width_col = i;
+        }
+    }
+
+    return max_width_col;
+}
+
+// Удаление последнего элемента вектора
+void Table::del_last() {
+    tab.pop_back();
+}
+

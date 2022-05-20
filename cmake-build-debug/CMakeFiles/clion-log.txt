@@ -1,0 +1,4 @@
+Cannot generate into C:\Users\Daniil\CLionProjects\SQL
+It is already used for project \\wsl$\Ubuntu\home\stepan\C++\techonparkproject
+
+Please either delete it manually or select another generation directory

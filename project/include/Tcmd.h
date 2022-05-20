@@ -65,6 +65,7 @@ private:
     void select(vector<string> cmd);
     void insert(vector<string> cmd);
     void update(vector<string> cmd);
+    void dlt(vector<string> cmd);
     // DCL - Data Control Language
     void show(vector<string> cmd);
 private:
@@ -101,6 +102,8 @@ Tcmd::Tcmd() {
                 insert(cmd);
             } else if (cmd[0] == UPDATE) {
                 update(cmd);
+            } else if (cmd[0] == DELETE) {
+                dlt(cmd);
             }
         } else if ((cmd[0] == SHOW)) {
             show(cmd);
@@ -461,6 +464,61 @@ void Tcmd::update(vector<string> cmd) {
             } else {
                 cout << "Ошибка!\n" << "--> col или row без значения\n";
             }
+        }
+    }
+}
+
+void Tcmd::dlt(vector<string> cmd) {
+    switch (num_table(cmd[2])) {
+        case -1: {
+            cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
+            break;
+        }
+        default: {
+            if (cmd.size() == 3) {
+                Table tbl;
+                tbl.read_file(PATH_TO_TABLES + cmd[2]);
+                for (size_t i = 0; i < tbl.get_rows() * tbl.get_cols() - tbl.get_cols(); i++) {
+                    tbl.del_last();
+                }
+                tbl.set_rows_size(1);
+                tbl.write_file(PATH_TO_TABLES + cmd[2]);
+            } else {
+                Table tbl;
+                tbl.read_file(PATH_TO_TABLES + cmd[2]);
+                string col_where_key_word_for_delete;
+                for (size_t i = 0; i < cmd[4].size(); i++) {
+                    if (cmd[4][i] != '=') {
+                        col_where_key_word_for_delete = col_where_key_word_for_delete + cmd[4][i];
+                    }
+                }
+
+                size_t row_num_for_delete;
+                for (size_t i = 0; i < tbl.get_cols(); i++) {
+                    if (tbl.get_elem(0, i) == col_where_key_word_for_delete) {
+                        for (size_t j = 0; j < tbl.get_rows(); j++) {
+                            if (tbl.get_elem(i,j) == cmd[5]) {
+                                row_num_for_delete = j;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                vector<string> new_tab;
+                for (size_t i = 0; i < tbl.get_rows(); i++) {
+                    if (i !=  row_num_for_delete) {
+                        for (size_t j = 0; j < tbl.get_cols(); j++) {
+                            new_tab.push_back(tbl.get_elem(i, j));
+                        }
+                    }
+                }
+
+                tbl.set_tab(new_tab);
+                tbl.set_rows_size(tbl.get_rows() - 1);
+                tbl.write_file(PATH_TO_TABLES + cmd[2]);
+            }
+            break;
         }
     }
 }

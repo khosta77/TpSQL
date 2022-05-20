@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stepan/C++/techonparkproject
+CMAKE_SOURCE_DIR = /mnt/c/Users/Daniil/CLionProjects/SQL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stepan/C++/techonparkproject
+CMAKE_BINARY_DIR = /mnt/c/Users/Daniil/CLionProjects/SQL
 
 # Include any dependencies generated for this target.
 include CMakeFiles/TpSQL.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/TpSQL.dir/flags.make
 
 CMakeFiles/TpSQL.dir/main.cpp.o: CMakeFiles/TpSQL.dir/flags.make
 CMakeFiles/TpSQL.dir/main.cpp.o: main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stepan/C++/techonparkproject/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TpSQL.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TpSQL.dir/main.cpp.o -c /home/stepan/C++/techonparkproject/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Daniil/CLionProjects/SQL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TpSQL.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TpSQL.dir/main.cpp.o -c /mnt/c/Users/Daniil/CLionProjects/SQL/main.cpp
 
 CMakeFiles/TpSQL.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TpSQL.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stepan/C++/techonparkproject/main.cpp > CMakeFiles/TpSQL.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/Daniil/CLionProjects/SQL/main.cpp > CMakeFiles/TpSQL.dir/main.cpp.i
 
 CMakeFiles/TpSQL.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TpSQL.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stepan/C++/techonparkproject/main.cpp -o CMakeFiles/TpSQL.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Daniil/CLionProjects/SQL/main.cpp -o CMakeFiles/TpSQL.dir/main.cpp.s
 
 CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o: CMakeFiles/TpSQL.dir/flags.make
 CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o: project/src/auxiliary_func.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stepan/C++/techonparkproject/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o -c /home/stepan/C++/techonparkproject/project/src/auxiliary_func.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Daniil/CLionProjects/SQL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o -c /mnt/c/Users/Daniil/CLionProjects/SQL/project/src/auxiliary_func.cpp
 
 CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stepan/C++/techonparkproject/project/src/auxiliary_func.cpp > CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/Daniil/CLionProjects/SQL/project/src/auxiliary_func.cpp > CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.i
 
 CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stepan/C++/techonparkproject/project/src/auxiliary_func.cpp -o CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Daniil/CLionProjects/SQL/project/src/auxiliary_func.cpp -o CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.s
 
 CMakeFiles/TpSQL.dir/project/src/Table.cpp.o: CMakeFiles/TpSQL.dir/flags.make
 CMakeFiles/TpSQL.dir/project/src/Table.cpp.o: project/src/Table.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stepan/C++/techonparkproject/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TpSQL.dir/project/src/Table.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TpSQL.dir/project/src/Table.cpp.o -c /home/stepan/C++/techonparkproject/project/src/Table.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Daniil/CLionProjects/SQL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TpSQL.dir/project/src/Table.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TpSQL.dir/project/src/Table.cpp.o -c /mnt/c/Users/Daniil/CLionProjects/SQL/project/src/Table.cpp
 
 CMakeFiles/TpSQL.dir/project/src/Table.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TpSQL.dir/project/src/Table.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stepan/C++/techonparkproject/project/src/Table.cpp > CMakeFiles/TpSQL.dir/project/src/Table.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/Daniil/CLionProjects/SQL/project/src/Table.cpp > CMakeFiles/TpSQL.dir/project/src/Table.cpp.i
 
 CMakeFiles/TpSQL.dir/project/src/Table.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TpSQL.dir/project/src/Table.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stepan/C++/techonparkproject/project/src/Table.cpp -o CMakeFiles/TpSQL.dir/project/src/Table.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Daniil/CLionProjects/SQL/project/src/Table.cpp -o CMakeFiles/TpSQL.dir/project/src/Table.cpp.s
 
 # Object files for target TpSQL
 TpSQL_OBJECTS = \
@@ -110,7 +110,7 @@ TpSQL: CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o
 TpSQL: CMakeFiles/TpSQL.dir/project/src/Table.cpp.o
 TpSQL: CMakeFiles/TpSQL.dir/build.make
 TpSQL: CMakeFiles/TpSQL.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/stepan/C++/techonparkproject/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable TpSQL"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/Daniil/CLionProjects/SQL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable TpSQL"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TpSQL.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,6 +123,6 @@ CMakeFiles/TpSQL.dir/clean:
 .PHONY : CMakeFiles/TpSQL.dir/clean
 
 CMakeFiles/TpSQL.dir/depend:
-	cd /home/stepan/C++/techonparkproject && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stepan/C++/techonparkproject /home/stepan/C++/techonparkproject /home/stepan/C++/techonparkproject /home/stepan/C++/techonparkproject /home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/c/Users/Daniil/CLionProjects/SQL && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/Users/Daniil/CLionProjects/SQL /mnt/c/Users/Daniil/CLionProjects/SQL /mnt/c/Users/Daniil/CLionProjects/SQL /mnt/c/Users/Daniil/CLionProjects/SQL /mnt/c/Users/Daniil/CLionProjects/SQL/CMakeFiles/TpSQL.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/TpSQL.dir/depend
 

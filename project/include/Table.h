@@ -54,6 +54,12 @@ public:
     // Вывод содержимого ячейки
     string get_elem(size_t row, size_t col);
 
+    // Узнаем ширину таблицы при выводе
+    size_t get_width_table();
+
+    // Узнаем номер самого широкого столбца
+    size_t get_max_width_col();
+
     //// Остальное
     // Вывод таблицы в консоль
     void out_str();
@@ -66,6 +72,9 @@ public:
 
     // Записи элементов таблицы из файла в вектор
     void read_file(string path_file);
+
+    // Удаление последнего элемента вектора
+    void del_last();
 
     // !!! dop func
     void push_col(string col_name);
