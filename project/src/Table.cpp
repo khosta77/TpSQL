@@ -45,6 +45,9 @@ Table& Table::operator=(const Table& rhs) {
 void Table::read_file(string path_file) {
     ifstream fin;
     fin.open(path_file);
+    if (!fin.is_open()) {
+        return;
+    }
     string buf;
     while (!fin.eof()) {
         getline(fin, buf);
