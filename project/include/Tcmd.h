@@ -27,7 +27,7 @@ using namespace std;
 #define SELECT "select"
 #define INSERT "insert"
 #define UPDATE "update"
-//#define DELETE "delete"
+//#define DELETE "delet"
 // DCL - Data Control Language
 #define SHOW "show"
 // DAL - Data Additionl Language
@@ -64,37 +64,40 @@ TODO: Красивый вывод таблицы
 TODO: Проверка корректной работы с .csv
 
 TODO: .gitignor
+ - 90 %
  */
 class Tcmd {
 private:
     vector<string> tables;
 public:
-    // Construct/destruct
+// Construct/destruct
     explicit Tcmd();
 
 private:
     void get_tables_from_memory();  // Получение элементов tables из памяти или создание памяти
     void update_tables_from_memory();  // Обновление памяти
-    /* Методы ниже представляют собой команды TpSQL */
-    // DDL - Data Definition Language
+
+// Методы ниже представляют собой команды TpSQL
+//  DDL - Data Definition Language
     void create(vector<string> cmd);
     void read(vector<string> cmd);
     void drop(vector<string> cmd);
     void alter(vector<string> cmd);
-    // DML - Data Manipulation Language
+//  DML - Data Manipulation Language
     void select(vector<string> cmd);
     void insert(vector<string> cmd);
     void update(vector<string> cmd);
 //    void delet(vector<string> cmd);
-    // DCL - Data Control Language
+
+//  DCL - Data Control Language
     void show(vector<string> cmd);
 private:
-    // Additional functions
+// Additional functions
     vector<string> get_split_cmd();  // Получение введенной команды для ее последующего анализа
     string del_symbol(string str, string c);  // Удалит в str символ c
     string tolower(string str);  // А -> а
     string touper(string str);  // a -> A
-    bool FileIsExist(string filePath);  // Существет файл или нет
+//    bool FileIsExist(string filePath);  // Существет файл или нет
     bool content_symbol(string str, char symbol);  // Содержит str символ symbol или нет
     int num_table(string table_name);  // Status - есть таблица в системе или нет (-1)
 };

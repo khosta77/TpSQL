@@ -41,18 +41,15 @@ Tcmd::Tcmd() {
 }
 
 void Tcmd::get_tables_from_memory() {
-    if (FileIsExist(PATH_DATA_LOG)) {
-        ifstream fin;
-        fin.open(PATH_DATA_LOG);
+    fstream flog(PATH_DATA_LOG);
+    if (flog.is_open()) {
         string line;
-        while (getline(fin, line)) {
+        while (getline(flog, line)) {
             tables.push_back(line);
         }
-        fin.close();
+        flog.close();
     } else {
-        ofstream fout;
-        fout.open(PATH_DATA_LOG);
-        fout.close();
+        flog.close();
     }
 }
 
@@ -287,7 +284,7 @@ void Tcmd::select(vector<string> cmd) {
 }
 
 void Tcmd::insert(vector<string> cmd) {
-    if (tolower(cmd[1]) == INTO) {
+    if (tolower(cmd[1]) == INTO && cmd.size() >= 4) {
         vector<string> col;
         size_t mrk_end_col;
         for (size_t i = 3; i < cmd.size(); i++) {
@@ -522,16 +519,6 @@ string Tcmd::touper(string str) {
         }
     }
     return str;
-}
-
-bool Tcmd::FileIsExist(string filePath) {
-    bool isExist = false;
-    ifstream fin(filePath.c_str());
-    if (fin.is_open()) {
-        isExist = true;
-    }
-    fin.close();
-    return isExist;
 }
 
 bool Tcmd::content_symbol(string str, char symbol) {

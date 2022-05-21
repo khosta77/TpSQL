@@ -1,10 +1,6 @@
 #include "../include/Table.h"
 #include "../include/auxiliary_func.h"
 
-/*
- *
- * Не знаю почему но таблица не корректно считывалась, в ней были не читаемые символы
- * */
 static void split_str_2(string str, vector<string> &array) {
     string buf = "";
     for (size_t i = 0; i <= str.size(); i++) {
@@ -16,11 +12,6 @@ static void split_str_2(string str, vector<string> &array) {
         }
     }
 }
-
-
-// Construct/destruct
-//Table::Table(string path_file);
-//Table::~Table();
 
 // Создаем пустую таблицу заданного размера
 Table::Table(size_t row, size_t col) {
