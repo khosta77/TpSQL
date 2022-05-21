@@ -8,9 +8,11 @@ Tcmd::Tcmd() {
     cout << "===";
     for (vector<string> cmd;;) {
         cmd = get_split_cmd();
-        if ((cmd[0] == CREATE || cmd[0] == DROP || cmd[0] == ALTER) && cmd.size() > 2) {
+        if ((cmd[0] == CREATE || cmd[0] == DROP || cmd[0] == ALTER || cmd[0] == READ) && cmd.size() > 2) {
             if (cmd[0] == CREATE) {
                 create(cmd);
+            }else if (cmd[0] == READ) {
+                read(cmd);
             } else if (cmd[0] == DROP) {
                 drop(cmd);
             } else if (cmd[0] == ALTER && cmd.size() >= 5) {
@@ -37,7 +39,7 @@ Tcmd::Tcmd() {
         }
     }
 }
-// git add project/include/Tcmd.h project/src/Tcmd.cpp; git commit -m "Добавлено чтение из .csv по умолчанию"
+
 void Tcmd::get_tables_from_memory() {
     if (FileIsExist(PATH_DATA_LOG)) {
         ifstream fin;
@@ -88,6 +90,23 @@ void Tcmd::create(vector<string> cmd) {
         } else {
             std::cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
         }
+    } else {
+        cout << "Ошибка!\n";
+    }
+}
+
+// READ TABLE test_read [path];
+void Tcmd::read(vector<string> cmd) {
+    if (tolower(cmd[1]) == TABLE && cmd.size() == 4) {
+        Table tbl;
+        tbl.read_file(cmd[3]);
+        if (tbl.table_empty()) {
+            std::cout << "Ошибка!\n" << "--> Файл пуст/не существует" << endl;
+            return;
+        }
+        tbl.write_file(PATH_TO_TABLES + cmd[2] + CSV);
+        this->tables.push_back(cmd[2] + CSV);
+        update_tables_from_memory();
     } else {
         cout << "Ошибка!\n";
     }

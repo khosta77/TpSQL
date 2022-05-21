@@ -20,6 +20,7 @@ using namespace std;
 #define CSV ".csv"
 // DDL - Data Definition Language
 #define CREATE "create"
+#define READ "read"
 #define ALTER "alter"
 #define DROP "drop"
 // DML - Data Manipulation Language
@@ -76,6 +77,7 @@ private:
     /* Методы ниже представляют собой команды TpSQL */
     // DDL - Data Definition Language
     void create(vector<string> cmd);
+    void read(vector<string> cmd);
     void drop(vector<string> cmd);
     void alter(vector<string> cmd);
     // DML - Data Manipulation Language
