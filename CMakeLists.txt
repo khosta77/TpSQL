@@ -10,7 +10,8 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(TpSQL main.cpp
         ./project/include/Table.h
+        ./project/src/Table.cpp
         ./project/include/Tcmd.h
+        ./project/src/Tcmd.cpp
         ./project/include/auxiliary_func.h
-        ./project/src/auxiliary_func.cpp
-        ./project/src/Table.cpp)
+        ./project/src/auxiliary_func.cpp)
