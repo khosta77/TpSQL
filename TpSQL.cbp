@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="TpSQL"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/stepan/C++/TpSQL"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TpSQL">
+				<Option output="/home/stepan/C++/TpSQL/TpSQL" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/stepan/C++/TpSQL"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 TpSQL"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TpSQL/fast">
+				<Option output="/home/stepan/C++/TpSQL/TpSQL" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/stepan/C++/TpSQL"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 TpSQL/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/stepan/C++/TpSQL"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/stepan/C++/TpSQL"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/stepan/C++/TpSQL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/stepan/C++/TpSQL/main.cpp">
+			<Option target="TpSQL"/>
+		</Unit>
+		<Unit filename="/home/stepan/C++/TpSQL/project/include/Table.h">
+			<Option target="TpSQL"/>
+		</Unit>
+		<Unit filename="/home/stepan/C++/TpSQL/project/include/Tcmd.h">
+			<Option target="TpSQL"/>
+		</Unit>
+		<Unit filename="/home/stepan/C++/TpSQL/project/include/auxiliary_func.h">
+			<Option target="TpSQL"/>
+		</Unit>
+		<Unit filename="/home/stepan/C++/TpSQL/project/src/Table.cpp">
+			<Option target="TpSQL"/>
+		</Unit>
+		<Unit filename="/home/stepan/C++/TpSQL/project/src/Tcmd.cpp">
+			<Option target="TpSQL"/>
+		</Unit>
+		<Unit filename="/home/stepan/C++/TpSQL/project/src/auxiliary_func.cpp">
+			<Option target="TpSQL"/>
+		</Unit>
+		<Unit filename="/home/stepan/C++/TpSQL/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
