@@ -1,0 +1,15 @@
+# Директории
+.cmake/
+cmake-build-debug/
+Testing/
+
+# Не ключевые файлы
+CMakeCache.txt
+TpSQL
+TpSQL.cbp
+project/data.txt
+
+# Логи/сиэсвишки/ошки
+*.o
+*.log
+*.csv

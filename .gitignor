@@ -1,6 +1,0 @@
-.cmake/
-cmake-build-debug/
-
-CMakeCache.txt
-TpSQL
-TpSQL.cbp
