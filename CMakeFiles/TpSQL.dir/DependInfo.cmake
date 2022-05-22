@@ -1,17 +1,17 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
   )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/stepan/C++/techonparkproject/main.cpp" "/home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir/main.cpp.o"
-  "/home/stepan/C++/techonparkproject/project/src/Table.cpp" "/home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir/project/src/Table.cpp.o"
-  "/home/stepan/C++/techonparkproject/project/src/auxiliary_func.cpp" "/home/stepan/C++/techonparkproject/CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/stepan/C++/TpSQL/main.cpp" "CMakeFiles/TpSQL.dir/main.cpp.o" "gcc" "CMakeFiles/TpSQL.dir/main.cpp.o.d"
+  "/home/stepan/C++/TpSQL/project/src/Table.cpp" "CMakeFiles/TpSQL.dir/project/src/Table.cpp.o" "gcc" "CMakeFiles/TpSQL.dir/project/src/Table.cpp.o.d"
+  "/home/stepan/C++/TpSQL/project/src/Tcmd.cpp" "CMakeFiles/TpSQL.dir/project/src/Tcmd.cpp.o" "gcc" "CMakeFiles/TpSQL.dir/project/src/Tcmd.cpp.o.d"
+  "/home/stepan/C++/TpSQL/project/src/auxiliary_func.cpp" "CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o" "gcc" "CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o.d"
   )
 
 # Targets to which this target links.
