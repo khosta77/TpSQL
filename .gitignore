@@ -1,5 +1,6 @@
 # Директории
 .cmake/
+.idea/
 cmake-build-debug/
 Testing/
 
