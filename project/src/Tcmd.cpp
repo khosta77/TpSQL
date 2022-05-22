@@ -18,17 +18,16 @@ Tcmd::Tcmd() {
             } else if (cmd[0] == ALTER && cmd.size() >= 5) {
                 alter(cmd);
             }
-        } else if ((cmd[0] == SELECT || cmd[0] == INSERT || cmd[0] == UPDATE) && cmd.size() > 2) {
+        } else if ((cmd[0] == SELECT || cmd[0] == INSERT || cmd[0] == UPDATE || cmd[0] == DELETE) && cmd.size() > 2) {
             if (cmd[0] == SELECT) {
                 select(cmd);
             } else if (cmd[0] == INSERT) {
                 insert(cmd);
             } else if (cmd[0] == UPDATE) {
                 update(cmd);
+            } else if (cmd[0] == DELETE) {
+                delet(cmd);
             }
-//            else if (cmd[0] == DELETE) {
-//                delet(cmd);
-//            }
         } else if ((cmd[0] == SHOW)) {
             show(cmd);
         } else if (cmd[0] == EXIT) {
@@ -402,60 +401,74 @@ void Tcmd::update(vector<string> cmd) {
     }
 }
 
-//void Tcmd::delet(vector<string> cmd) {
-//    switch (num_table(cmd[2])) {
-//        case -1: {
-//            cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
-//            break;
-//        }
-//        default: {
-//            if (cmd.size() == 3) {
-//                Table tbl;
-//                tbl.read_file(PATH_TO_TABLES + cmd[2]);
-//                for (size_t i = 0; i < tbl.get_rows() * tbl.get_cols() - tbl.get_cols(); i++) {
-//                    tbl.del_last();
-//                }
-//                tbl.set_rows_size(1);
-//                tbl.write_file(PATH_TO_TABLES + cmd[2]);
-//            } else {
-//                Table tbl;
-//                tbl.read_file(PATH_TO_TABLES + cmd[2]);
-//                string col_where_key_word_for_delete;
-//                for (size_t i = 0; i < cmd[4].size(); i++) {
-//                    if (cmd[4][i] != '=') {
-//                        col_where_key_word_for_delete = col_where_key_word_for_delete + cmd[4][i];
-//                    }
-//                }
-//
-//                size_t row_num_for_delete;
-//                for (size_t i = 0; i < tbl.get_cols(); i++) {
-//                    if (tbl.get_elem(0, i) == col_where_key_word_for_delete) {
-//                        for (size_t j = 0; j < tbl.get_rows(); j++) {
-//                            if (tbl.get_elem(i,j) == cmd[5]) {
-//                                row_num_for_delete = j;
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                vector<string> new_tab;
-//                for (size_t i = 0; i < tbl.get_rows(); i++) {
-//                    if (i !=  row_num_for_delete) {
-//                        for (size_t j = 0; j < tbl.get_cols(); j++) {
-//                            new_tab.push_back(tbl.get_elem(i, j));
-//                        }
-//                    }
-//                }
-//
-//                tbl.set_table(new_tab);
-//                tbl.set_rows_size(tbl.get_rows() - 1);
-//                tbl.write_file(PATH_TO_TABLES + cmd[2]);
-//            }
-//            break;
-//        }
-//    }
-//}
+void Tcmd::delet(vector<string> cmd) {  // Команда DELETE работает не до конца.Нельзя за раз много элем. del
+    if (tolower(cmd[1]) == FROM) {
+        switch (num_table(cmd[2] + CSV)) {
+            case -1: {
+                cout << "Ошибка!\n" << "--> Таблица не найдена!\n";
+                break;
+            }
+            default: {
+                if (cmd.size() == 3) {
+                    Table tbl;
+                    tbl.read_file(PATH_TO_TABLES + cmd[2] + CSV);
+                    Table tbl_new(1, tbl.get_cols());
+                    for (size_t i  = 0; i < tbl.get_cols(); i++) {
+                        tbl_new.set_elem(0, i, tbl.get_elem(0, i));
+                    }
+                    tbl_new.write_file(PATH_TO_TABLES + cmd[2] + CSV);
+                } else if (cmd.size() == 6) {  // По одной колонке можно только удалять
+                    if (tolower(cmd[3]) == WHERE) {
+                        vector<string> col_val;
+                        bool mrk_next_set = false;
+                        for (size_t i = 4; i < cmd.size(); i++) {
+                            if (content_symbol(cmd[i], '=')) {
+                                col_val.push_back(del_symbol(cmd[i], "="));
+                                mrk_next_set = true;
+                            } else if (mrk_next_set) {
+                                col_val.push_back(del_symbol(cmd[i], ","));
+                                mrk_next_set = false;
+                            }
+                        }
+                        if (col_val.size() % 2 == 0) {
+                            Table tbl;
+                            tbl.read_file(PATH_TO_TABLES + cmd[2] + CSV);
+                            Table tbl_new(1, tbl.get_cols());
+                            for (size_t i  = 0; i < tbl.get_cols(); i++) {
+                                tbl_new.set_elem(0, i, tbl.get_elem(0, i));
+                            }
+                            for (size_t i_cv = 0; i_cv < col_val.size(); i_cv+=2) {  // i_cv = i_col_val
+                                for (size_t i_c = 0; i_c < tbl.get_cols(); i_c++) {  // i_c = i_col tbl
+                                    if (tbl.get_elem(0, i_c) == del_symbol(col_val[i_cv], "=")) {
+                                        for (size_t j_r = 1; j_r < tbl.get_rows(); j_r++) {
+                                            if (tbl.get_elem(j_r, i_c) != del_symbol(col_val[i_cv + 1], ",")) {
+                                                tbl_new.set_empty_row(1);
+                                                for (size_t i = 0; i < tbl.get_cols(); i++) {
+                                                    tbl_new.set_elem(tbl_new.get_rows() - 1, i,
+                                                                     tbl.get_elem(j_r, i));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            tbl_new.write_file(PATH_TO_TABLES + cmd[2] + CSV);
+                        } else {
+                            cout << "Ошибка!\n" << "--> После WHERE не корректный ввод!\n";
+                            break;
+                        }
+                    } else {
+                        cout << "Ошибка!\n" << "--> Действие не распознано!\n";
+                        break;
+                    }
+                } else {
+                    cout << "Ошибка!\n" << "--> Команда введена не корректно!\n";
+                    break;
+                }
+            }
+        }
+    }
+}
 
 //
 // DCL - Data Control Language

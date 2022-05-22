@@ -27,7 +27,7 @@ using namespace std;
 #define SELECT "select"
 #define INSERT "insert"
 #define UPDATE "update"
-//#define DELETE "delet"
+#define DELETE "delete"
 // DCL - Data Control Language
 #define SHOW "show"
 // DAL - Data Additionl Language
@@ -51,14 +51,6 @@ using namespace std;
 
 
 /*
-TODO: Чтобы таблица по умолчанию создавалась формата (.csv)
- - Добавлено
-
-TODO: Считывание готовых таблиц
- - Добавлено
-
-TODO: Команда DELETE
-
 TODO: Красивый вывод таблицы
 
 TODO: Проверка корректной работы с .csv
@@ -87,7 +79,7 @@ private:
     void select(vector<string> cmd);
     void insert(vector<string> cmd);
     void update(vector<string> cmd);
-//    void delet(vector<string> cmd);
+    void delet(vector<string> cmd);
 
 //  DCL - Data Control Language
     void show(vector<string> cmd);
