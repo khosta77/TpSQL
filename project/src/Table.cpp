@@ -1,5 +1,5 @@
 #include "../include/Table.h"
-#include "../include/auxiliary_func.h"
+//#include "../include/auxiliary_func.h"
 
 static void split_str_2(string str, vector<string> &array) {
     string buf = "";
@@ -10,6 +10,56 @@ static void split_str_2(string str, vector<string> &array) {
         } else {
             buf += str[i];
         }
+    }
+}
+
+static void split_str(const string buf, vector<string>* table) {
+    int i = 0;
+    string res;
+    while (buf[i] != '\r') {     // считываем до конца строки
+        if (buf[i] != ';'){
+            res = res + buf[i];  // элемент считываем до ;
+        } else {
+            table->push_back(res);
+            res = "";
+        }
+        i++;
+    }
+
+    if (buf[buf.size() - 2 != ';']) {
+        table->push_back(res);
+    }
+}
+
+// Поиск максимального размера элементра в столбце
+static int max_elem_size_in_col(const vector<string> table, const size_t rows,
+                         const size_t cols, const int pos) {
+    int max_elem_size = 0;
+    int buf;
+    max_elem_size = (table.at(pos)).size();
+    for (size_t i = 1; i < rows; i++) {
+        buf = (table.at(pos + i * cols)).size();
+
+        if (buf > max_elem_size) {
+            max_elem_size = buf;
+        }
+    }
+
+    return max_elem_size;
+}
+
+// Заполнить строку пустыми элементами
+static void fill_row(Table* table, size_t row) {
+    vector<string> buf_table;
+    string buf;
+    cout << "Введите строку" << endl;
+    cin.ignore();
+    getline(cin, buf);
+    buf = buf + '\r';
+    split_str(buf, &buf_table);
+
+    for (size_t i = 0; i < table->get_cols(); i++) {
+        table->set_elem(row, i, buf_table.at(i));
     }
 }
 
@@ -52,17 +102,44 @@ void Table::read_file(string path_file) {
 }
 
 // Вывод таблицы в консоль
-void Table::out_str() {
-    int max_elem_size;
-    for (size_t i = 0; i < rows; i++) {
-        for (size_t j = 0; j < cols; j++) {
-            // Ищем максимальный элемент в столбце и выводим в консоль ячейки с шириной,
-            // равной ширине максимального жлемента в столце
-            max_elem_size = max_elem_size_in_col(tab, rows, cols, j);
-            cout << setw(max_elem_size)<< left << tab.at(j + i * cols) << "   ";
+void Table::out_table() {
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    if (this->get_width_table() < w.ws_col) {
+        // Выполняется, когда таблица целиком влазит в консоль
+        int max_elem_size;
+        for (size_t i = 0; i < rows; i++) {
+            for (size_t j = 0; j < cols; j++) {
+                // Ищем максимальный элемент в столбце и выводим в консоль ячейки с шириной,
+                // равной ширине максимального элемента в столце
+                max_elem_size = max_elem_size_in_col(tab, rows, cols, j);
+                cout << setw(max_elem_size)<< left << tab.at(j + i * cols) << "   ";
+            }
+            cout << endl;
         }
-        cout << endl;
+    } else {
+        // Таблица не влазит целиком. Начинаем по одному "сжимать" самые широкие столбцы
+        Table small_table(*this);
+        while (small_table.get_width_table() >= w.ws_col) {
+            size_t max_width_col = small_table.get_max_width_col();
+            small_table.set_elem(0, max_width_col, "...");
+            for (size_t i = 1; i < small_table.rows; i++) {
+                small_table.set_elem(i, max_width_col, "");
+            }
+        }
+
+        small_table.out_table();
     }
+//    int max_elem_size;
+//    for (size_t i = 0; i < rows; i++) {
+//        for (size_t j = 0; j < cols; j++) {
+//            // Ищем максимальный элемент в столбце и выводим в консоль ячейки с шириной,
+//            // равной ширине максимального жлемента в столце
+//            max_elem_size = max_elem_size_in_col(tab, rows, cols, j);
+//            cout << setw(max_elem_size)<< left << tab.at(j + i * cols) << "   ";
+//        }
+//        cout << endl;
+//    }
 }
 
 // Вывод содержимого ячейки
@@ -185,9 +262,6 @@ void Table::set_rows_size() {
     }
     tab.at(this->rows * this->cols).push_back('\0');
     this->rows++;
-//    for (size_t i = this->rows * this->cols - 1; i < rows * this->cols; i++) {
-//        table.push_back(" ");
-//    }
 }
 
 // Узнаем ширину таблицы при выводе

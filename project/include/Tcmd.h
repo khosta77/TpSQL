@@ -16,7 +16,7 @@
 using namespace std;
 
 #define PATH_DATA_LOG "./project/data.txt"
-#define PATH_TO_TABLES "./project/tables/"
+#define PATH_TO_TABLES "./project/"
 #define CSV ".csv"
 // DDL - Data Definition Language
 #define CREATE "create"
@@ -44,20 +44,6 @@ using namespace std;
 #define RENAME "rename"
 #define TO "to"
 
-// TODO: полезные ссылки
-//   https://habr.com/ru/post/564390/
-//   https://www.schoolsw3.com/sql/sql_update.php
-// (Стереть в финальной версии)
-
-
-/*
-TODO: Красивый вывод таблицы
-
-TODO: Проверка корректной работы с .csv
-
-TODO: .gitignor
- - 90 %
- */
 class Tcmd {
 private:
     vector<string> tables;
@@ -75,6 +61,7 @@ private:
     void read(vector<string> cmd);
     void drop(vector<string> cmd);
     void alter(vector<string> cmd);
+
 //  DML - Data Manipulation Language
     void select(vector<string> cmd);
     void insert(vector<string> cmd);

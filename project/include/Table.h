@@ -5,6 +5,10 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <fstream>
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -13,7 +17,6 @@ private:
     vector<string> tab; // table
     size_t rows = 0;
     size_t cols = 0;
-    //// Test
 public:
     //// Конструкторы
     // Создаем пустую таблицу заданного размера
@@ -62,7 +65,7 @@ public:
 
     //// Остальное
     // Вывод таблицы в консоль
-    void out_str();
+    void out_table();
 
     // Узнаем, пуста ли таблица
     bool table_empty();

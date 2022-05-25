@@ -235,7 +235,7 @@ void Tcmd::select(vector<string> cmd) {
             default: {
                 Table tbl;
                 tbl.read_file(PATH_TO_TABLES + cmd[3] + CSV);
-                tbl.out_str();  // out_table бывш
+                tbl.out_table();
             }
         }
     } else if (cmd[1] != "*") {
@@ -274,7 +274,7 @@ void Tcmd::select(vector<string> cmd) {
                         }
                     }
                 }
-                tbl_new.out_str();  // out_table бывш
+                tbl_new.out_table();
             }
         }
     } else {
