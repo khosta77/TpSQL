@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/TpSQL.dir/main.cpp.o CMakeFiles/TpSQL.dir/project/src/Table.cpp.o CMakeFiles/TpSQL.dir/project/src/Tcmd.cpp.o CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o -o TpSQL 
+/usr/bin/c++ CMakeFiles/TpSQL.dir/main.cpp.o CMakeFiles/TpSQL.dir/project/src/Table.cpp.o CMakeFiles/TpSQL.dir/project/src/Tcmd.cpp.o -o TpSQL 
