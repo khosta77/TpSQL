@@ -57,10 +57,10 @@ RM = /snap/clion/190/bin/cmake/linux/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = $PWD
+CMAKE_SOURCE_DIR = /home/stepan/C++/TpSQL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = $PWD
+CMAKE_BINARY_DIR = /home/stepan/C++/TpSQL
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -201,30 +201,6 @@ project/src/Tcmd.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/Tcmd.cpp.s
 .PHONY : project/src/Tcmd.cpp.s
 
-project/src/auxiliary_func.o: project/src/auxiliary_func.cpp.o
-.PHONY : project/src/auxiliary_func.o
-
-# target to build an object file
-project/src/auxiliary_func.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.o
-.PHONY : project/src/auxiliary_func.cpp.o
-
-project/src/auxiliary_func.i: project/src/auxiliary_func.cpp.i
-.PHONY : project/src/auxiliary_func.i
-
-# target to preprocess a source file
-project/src/auxiliary_func.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.i
-.PHONY : project/src/auxiliary_func.cpp.i
-
-project/src/auxiliary_func.s: project/src/auxiliary_func.cpp.s
-.PHONY : project/src/auxiliary_func.s
-
-# target to generate assembly for a file
-project/src/auxiliary_func.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TpSQL.dir/build.make CMakeFiles/TpSQL.dir/project/src/auxiliary_func.cpp.s
-.PHONY : project/src/auxiliary_func.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -243,9 +219,6 @@ help:
 	@echo "... project/src/Tcmd.o"
 	@echo "... project/src/Tcmd.i"
 	@echo "... project/src/Tcmd.s"
-	@echo "... project/src/auxiliary_func.o"
-	@echo "... project/src/auxiliary_func.i"
-	@echo "... project/src/auxiliary_func.s"
 .PHONY : help
 
 
