@@ -47,6 +47,7 @@ using namespace std;
 class Tcmd {
 private:
     vector<string> tables;
+    bool end_cmd;
 public:
 // Construct/destruct
     explicit Tcmd();

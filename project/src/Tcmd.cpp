@@ -6,6 +6,7 @@
 Tcmd::Tcmd() {
     get_tables_from_memory();
     cout << "===";
+    end_cmd = false;
     for (vector<string> cmd;;) {
         cmd = get_split_cmd();
         if ((cmd[0] == CREATE || cmd[0] == DROP || cmd[0] == ALTER || cmd[0] == READ) && cmd.size() > 2) {
@@ -489,18 +490,58 @@ void Tcmd::show(vector<string> cmd) {
 vector<string> Tcmd::get_split_cmd() {
     vector<string> mu;
     string tst;
+    bool mrk_n__ = true;
+    if (end_cmd) {
+        for (char a = cin.get(); a != '\n'; a = cin.get()) {}
+        cout << "===";
+        end_cmd = false;
+    }
     for (char a = cin.get(); a != ';'; a = cin.get()) {
         if (a == '\n') {
-            cout << "===";
-        } else {
-            if (a == ' ') {
+            cout << "--=";
+            if (mrk_n__) {
                 mu.push_back(tst);
                 tst = "";
+                mrk_n__ = false;
+            }
+        }
+        else if (a == '(' || a == ')') {
+            if (a == '(') {
+                if (mrk_n__) {
+                    mu.push_back(tst);
+                    mu.push_back("(");
+                    tst = "";
+                    mrk_n__ = false;
+                } else {
+                    mu.push_back("(");
+                    tst = "";
+                }
+            } else if (a == ')'){
+                if (mrk_n__) {
+                    mu.push_back(tst);
+                    mu.push_back(")");
+                    tst = "";
+                    mrk_n__ = false;
+                } else {
+                    mu.push_back(")");
+                    tst = "";
+                }
+            }
+        }
+        else {
+            if (a == ' ') {
+                if (mrk_n__) {
+                    mu.push_back(tst);
+                    tst = "";
+                    mrk_n__ = false;
+                }
             } else {
                 tst += a;
+                mrk_n__ = true;
             }
         }
     }
+    end_cmd = true;
     mu.push_back(tst);
     mu[0] = tolower(mu[0]);
     return mu;
