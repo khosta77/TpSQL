@@ -67,7 +67,7 @@ void Tcmd::update_tables_from_memory() {
 //
 void Tcmd::create(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE) {
-        if (cmd.size() > 3) {
+        if (cmd.size() > 5) {
             if (cmd[3] == "(") {
                 Table tbl;
                 tbl.set_rows_size(1);
