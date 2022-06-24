@@ -1,3 +1,0 @@
-/home/stepan/C++/TpSQL/CMakeFiles/TpSQL.dir
-/home/stepan/C++/TpSQL/CMakeFiles/edit_cache.dir
-/home/stepan/C++/TpSQL/CMakeFiles/rebuild_cache.dir

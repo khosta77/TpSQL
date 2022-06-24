@@ -82,10 +82,10 @@ void Tcmd::create(vector<string> cmd) {
                 this->tables.push_back(cmd[2] + CSV);
                 update_tables_from_memory();
             } else {
-                std::cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
+                cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
             }
         } else {
-            std::cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
+            cout << "Ошибка!\n" << "--> Несответствие команде" << endl;
         }
     } else {
         cout << "Ошибка!\n";
@@ -112,7 +112,7 @@ void Tcmd::read(vector<string> cmd) {
 void Tcmd::drop(vector<string> cmd) {
     if (tolower(cmd[1]) == TABLE) {
         if (remove((PATH_TO_TABLES + cmd[2] + CSV).c_str()) != 0) {
-            std::cout << "Ошибка!\n" << "--> Ошибка удаления файла" << endl;
+            cout << "Ошибка!\n" << "--> Ошибка удаления файла" << endl;
         } else {
             for (size_t i = 0; i < tables.size(); i++) {
                 if (tables[i] == (cmd[2] + CSV)) {
@@ -121,7 +121,7 @@ void Tcmd::drop(vector<string> cmd) {
                 }
             }
             update_tables_from_memory();
-            std::cout << "Файл успешно удалён" << endl;
+            cout << "Файл успешно удалён" << endl;
         }
     } else {
         cout << "Ошибка!\n";
@@ -160,7 +160,6 @@ void Tcmd::alter(vector<string> cmd) {
                     tbl.read_file(PATH_TO_TABLES + cmd[2] + CSV);
                     Table new_tbl;
                     size_t control_del = -1;
-//                    tbl.out_str();
                     for (size_t i = 0; i < tbl.get_cols(); i++) {
                         if (tbl.get_elem(0, i) != cmd[4]) {
                             new_tbl.push_col(tbl.get_elem(0, i));
@@ -202,7 +201,7 @@ void Tcmd::alter(vector<string> cmd) {
                     Table tbl;
                     tbl.read_file(PATH_TO_TABLES + cmd[2]);
                     if (remove((PATH_TO_TABLES + cmd[2]).c_str()) != 0) {
-                        std::cout << "Ошибка!\n" << "--> Переименновывания файла" << endl;
+                        cout << "Ошибка!\n" << "--> Переименновывания файла" << endl;
                     } else {
                         for (size_t i = 0; i < tables.size(); i++) {
                             if (tables[i] == (cmd[2] + CSV)) {

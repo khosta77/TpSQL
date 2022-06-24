@@ -1,5 +1,4 @@
 #include "../include/Table.h"
-//#include "../include/auxiliary_func.h"
 
 static void split_str_2(string str, vector<string> &array) {
     string buf = "";
@@ -130,16 +129,6 @@ void Table::out_table() {
 
         small_table.out_table();
     }
-//    int max_elem_size;
-//    for (size_t i = 0; i < rows; i++) {
-//        for (size_t j = 0; j < cols; j++) {
-//            // Ищем максимальный элемент в столбце и выводим в консоль ячейки с шириной,
-//            // равной ширине максимального жлемента в столце
-//            max_elem_size = max_elem_size_in_col(tab, rows, cols, j);
-//            cout << setw(max_elem_size)<< left << tab.at(j + i * cols) << "   ";
-//        }
-//        cout << endl;
-//    }
 }
 
 // Вывод содержимого ячейки

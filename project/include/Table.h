@@ -83,8 +83,6 @@ public:
     void push_col(string col_name);
     void set_rows_size();  // Изменение количества строк
 
-private:
-    //dop func
 };
 
 #endif  // TPSQL_TABLE_H_

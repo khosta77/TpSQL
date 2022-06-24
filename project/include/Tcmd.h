@@ -77,7 +77,6 @@ private:
     string del_symbol(string str, string c);  // Удалит в str символ c
     string tolower(string str);  // А -> а
     string touper(string str);  // a -> A
-//    bool FileIsExist(string filePath);  // Существет файл или нет
     bool content_symbol(string str, char symbol);  // Содержит str символ symbol или нет
     int num_table(string table_name);  // Status - есть таблица в системе или нет (-1)
 };
